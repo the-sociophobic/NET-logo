@@ -1,4 +1,4 @@
-import logoImage from './img/NormalMap.png'
+import logoImage from './img/normalMap.png'
 import defaultBackground from './img/defaultBackground.jpg'
 
 import { Refractor } from './Refractor'
