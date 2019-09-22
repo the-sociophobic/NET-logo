@@ -1,9 +1,8 @@
 import ResizeObserver from 'resize-observer-polyfill'
 
-import Logo from './Logo'
-
 export default class ThreeScene {
   constructor(props) {
+    this.props = props
     window.onload = this.init.bind(this)
   }
 
@@ -33,7 +32,9 @@ export default class ThreeScene {
     )
     this.camera.position.set(0, 0, 6)
 
-    this.Logo = new Logo({scene: this.scene})
+    //ADD UNITS
+    this.units = []
+    this.props.units.forEach(unit => this.units.push(new unit({scene: this.scene})))
 
     if (!this.frameId)
       this.frameId = requestAnimationFrame(this.animate.bind(this))
@@ -47,18 +48,16 @@ export default class ThreeScene {
   }
 
   animate = () => {
+    this.units.forEach(unit => unit.animate())
     this.renderer.render(this.scene, this.camera)
     this.frameId = window.requestAnimationFrame(this.animate.bind(this))
   }
 
+  componentWillUnmount(){
+    this.units.forEach(unit => unit.dispose())
+    cancelAnimationFrame(this.frameId)
+    // this.viewerRef.removeChild(this.renderer.domElement)
+  }
+
 }
-
-
-
-
-  // componentWillUnmount(){
-  //   this.units.forEach(unit => unit.dispose())
-  //   cancelAnimationFrame(this.frameId)
-  //   // this.viewerRef.removeChild(this.renderer.domElement)
-  // }
 

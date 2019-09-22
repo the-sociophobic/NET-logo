@@ -1,5 +1,6 @@
-import myThree from './ThreeScene'
+import ThreeScene from './ThreeScene'
+import Logo from './ThreeScene/Logo'
 
-// import './../styles'
-
-const threeInstance = new myThree()
+new ThreeScene({units: [
+  Logo,
+]})
