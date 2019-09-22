@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "parcel index.html",
+    "dev": "parcel example.html",
     "build": "parcel build ./src/index.js"
   }
 }
