@@ -6,6 +6,7 @@ import { WaterRefractionShader } from './WaterRefractionShader'
 
 import TransitionsHandler from '../TransitionsHandler'
 
+
 const clamp = (value, min, max) => Math.min(max, Math.max(value, min))
 const isTouchDevice = () => {  
   try {  
@@ -25,12 +26,12 @@ export default class Logo extends TransitionsHandler {
 
     const geometry = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
 
-    const backgroundImage = document.getElementById("logo-background") ?
-      document.getElementById("logo-background").src
+    const backgroundImage = document.getElementById("custom-background") ?
+      document.getElementById("custom-background").src
       :
       defaultBackground
-    const maskImage = document.getElementById("logo-mask") ?
-      document.getElementById("logo-mask").src
+    const maskImage = document.getElementById("custom-mask") ?
+      document.getElementById("custom-mask").src
       :
       defaultMask
 
@@ -56,8 +57,8 @@ export default class Logo extends TransitionsHandler {
 
       if (isTouchDevice()) {
         this.handleScroll()
-        document.addEventListener('wheel', this.handleScroll, false)
-        document.addEventListener('touchmove', this.handleScroll, false)
+        // document.addEventListener('wheel', this.handleScroll, false)
+        // document.addEventListener('touchmove', this.handleScroll, false)
       }
       else
         document.addEventListener('mousemove', this.handleMouseMove, false)
@@ -86,6 +87,11 @@ export default class Logo extends TransitionsHandler {
 
   }
 
+
+  // animate = () => {
+  //   if (isTouchDevice())
+  //     this.handleScroll()
+  // }
 
   handleScroll = e => {
     const threeSceneElement = document.getElementById("three-scene")
@@ -116,6 +122,7 @@ export default class Logo extends TransitionsHandler {
         }
 
       this.notFirstMouseEvent = true
+      // super.animate() //ES6 transplier needed
       this.animate()
       this.unregisterAllTransitions()
       this.handleFirstMouseMove(e)

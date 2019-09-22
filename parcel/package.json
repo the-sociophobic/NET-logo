@@ -2,7 +2,8 @@
   "name": "logo_parcel",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "author": "the_sociophobic",
+  "license": "ISC",
   "dependencies": {
     "resize-observer-polyfill": "^1.5.1"
   },
@@ -15,7 +16,7 @@
     "sass": "^1.22.12"
   },
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build ./static/js/index.js"
+    "start": "parcel index.html",
+    "build": "parcel build ./src/index.js"
   }
 }

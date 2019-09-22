@@ -1,5 +1,11 @@
 {
+  "author": "the_sociophobic",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "build": "cd parcel && yarn build"
   }
 }
