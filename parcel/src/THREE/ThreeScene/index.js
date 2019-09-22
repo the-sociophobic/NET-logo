@@ -45,6 +45,7 @@ export default class ThreeScene {
     this.camera.aspect = ViewerDiv.clientWidth / ViewerDiv.clientHeight
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
+    console.log(`three-scene elem resized (${ViewerDiv.clientWidth}, ${ViewerDiv.clientHeight})`)
   }
 
   animate = () => {
