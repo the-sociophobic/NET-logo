@@ -1,11 +1,18 @@
-#custom-background,
+.custom-background-desktop,
+.custom-background-mobile,
 #custom-mask,
 #refraction-k
   display: none
+  width: 0
+  height: 0
+  position: absolute
 
 .three-scene-container
-  width: 100%
-  padding-top: 100% / 16 * 9
+  // width: 100%
+  @media (min-width: 721px)
+    padding-top: 100% / 16 * 9
+  @media (max-width: 720px)
+    padding-top: 100% / 9 * 16
   position: relative
   #three-scene
     width: 100%

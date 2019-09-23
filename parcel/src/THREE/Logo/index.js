@@ -1,4 +1,5 @@
 import defaultMask from './img/defaultMask.png'
+import defaultMaskMobile from './img/defaultMaskMobile.png'
 import defaultBackground from './img/defaultBackground.jpg'
 
 import { Refractor } from './Refractor'
@@ -21,13 +22,25 @@ const isTouchDevice = () => {
 export default class Logo extends TransitionsHandler {
   constructor(props) {
     super(props)
+    // console.log(window.innerWidth / window.devicePixelRatio)
+    // console.log(window.innerWidth)
+    // console.log(window)
+    // console.log(document.documentElement.clientWidth)
+    if (window.innerWidth > 720)
+      this.initDesktop(props)
+    else
+      this.initMobile(props)
+    // window.addEventListener("resize", () => console.log(window.innerWidth))
+  }
 
+  initDesktop = props => {
     const { scene } = props
 
     const geometry = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
 
-    const backgroundImage = document.getElementById("custom-background") ?
-      document.getElementById("custom-background").src
+    const backgrounds = document.getElementsByClassName("custom-background-desktop")
+    const backgroundImage = backgrounds.length > 0 ?
+      backgrounds[Math.round(Math.random() * backgrounds.length)].src
       :
       defaultBackground
     const maskImage = document.getElementById("custom-mask") ?
@@ -84,14 +97,73 @@ export default class Logo extends TransitionsHandler {
 
       scene.add( refractor );
     })
-
   }
 
+  initMobile = props => {
+    const { scene } = props
 
-  // animate = () => {
-  //   if (isTouchDevice())
-  //     this.handleScroll()
-  // }
+    const geometry = new THREE.PlaneGeometry(7.20, 12.80, 1, 1)
+
+    const backgrounds = document.getElementsByClassName("custom-background-mobile")
+    const backgroundImage = backgrounds.length > 0 ?
+      backgrounds[Math.round(Math.random() * (backgrounds.length - 1))].src
+      :
+      defaultBackground
+    const maskImage = document.getElementById("custom-mask") ?
+      document.getElementById("custom-mask").src
+      :
+      defaultMaskMobile
+
+    let refractionK = document.getElementById("refraction-k") ?
+      document.getElementById("refraction-k").textContent
+      :
+      "0.15"
+    refractionK = parseFloat(refractionK)
+
+    //BACKGROUND
+    new THREE.TextureLoader()
+    .load(backgroundImage, texture => {
+
+      let material = new THREE.MeshBasicMaterial({ map: texture })
+
+      this.fullyVisiblePlane = new THREE.Mesh(geometry, material)
+      this.fullyVisiblePlane.position.set(0, 0, -1)
+      this.fullyVisiblePlane.scale.set(1.02, 1.02, 1.02)
+
+      this.additionalPlane = new THREE.Mesh(geometry, material)
+      this.additionalPlane.position.set(0, 0, -1.1)
+      this.additionalPlane.scale.set(1.3, 1.3, 1.3)
+
+      if (isTouchDevice()) {
+        this.handleScroll()
+        document.addEventListener('wheel', this.handleScroll, false)
+        document.addEventListener('touchmove', this.handleScroll, false)
+      }
+      else
+        document.addEventListener('mousemove', this.handleMouseMove, false)
+
+      scene.add(this.fullyVisiblePlane)
+      scene.add(this.additionalPlane)
+    })
+
+
+    //REFRACTION
+    new THREE.TextureLoader()
+    .load(maskImage, texture => {
+
+      let refractor = new Refractor( geometry, {
+        color: 0x999999,
+        textureWidth: 1024,
+        textureHeight: 1024,
+        shader: WaterRefractionShader
+      } );
+
+      refractor.material.uniforms[ "tDudv" ].value = texture
+      refractor.material.uniforms[ "refractionK" ].value = refractionK
+
+      scene.add( refractor );
+    })
+  }
 
   handleScroll = e => {
     const threeSceneElement = document.getElementById("three-scene")
