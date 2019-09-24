@@ -26,7 +26,7 @@ export default class Logo extends TransitionsHandler {
     // console.log(window.innerWidth)
     // console.log(window)
     // console.log(document.documentElement.clientWidth)
-    if (window.innerWidth > 720)
+    if ((window.clientWidth || window.innerWidth || ocument.documentElement.clientWidth) > 720)
       this.initDesktop(props)
     else
       this.initMobile(props)
