@@ -5,7 +5,17 @@ export default class ThreeScene {
     this.props = props
     //Wait for css to apply to elem size. Should prevent infinite event firing
     //React's componentDidMount() alternative
-    window.onload = () => setTimeout(() => this.init.bind(this)(), 500)
+    window.onload = () => {
+      const elementLoadedChecker = setInterval(() => {
+        const ViewerDiv = document.getElementById("three-scene")
+        if (!ViewerDiv) {
+          console.log("no #three-scene element in the DOM")
+          return
+        }
+        clearInterval(elementLoadedChecker)
+        setTimeout(() => this.init.bind(this)(), 50)
+      }, 100)
+    }
   }
 
   init() {
