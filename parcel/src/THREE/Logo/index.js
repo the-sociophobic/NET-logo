@@ -108,11 +108,11 @@ export default class Logo extends TransitionsHandler {
       defaultBackgroundMobile
 
     const maskWeb = document.getElementById("custom-mask-web") ?
-      document.getElementById("custom-mask").src
+      document.getElementById("custom-mask-web").src
       :
       defaultMaskWeb
     const maskMobile = document.getElementById("custom-mask-mobile") ?
-      document.getElementById("custom-mask").src
+      document.getElementById("custom-mask-mobile").src
       :
       defaultMaskMobile
 
