@@ -47,7 +47,7 @@ export default class Logo extends TransitionsHandler {
 
     const geometryWeb = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
     const geometryMobile = new THREE.PlaneGeometry(7.20, 12.80, 1, 1)
-    let invisibleMaterial = new THREE.MeshBasicMaterial({color: "aabbcc99"})
+    let invisibleMaterial = new THREE.MeshBasicMaterial({color: "aabbcc"})
 
     this.web.fullyVisiblePlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
     this.web.fullyVisiblePlane.position.set(0, 0, -1 - (type === "web" ? 0 : zOffset))
