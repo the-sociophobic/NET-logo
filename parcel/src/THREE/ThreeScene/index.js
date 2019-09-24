@@ -1,4 +1,6 @@
 import ResizeObserver from 'resize-observer-polyfill'
+import isMobile from '../../utils/isMobile'
+
 
 export default class ThreeScene {
   constructor(props) {
@@ -45,9 +47,10 @@ export default class ThreeScene {
     this.camera.position.set(0, 0, 6)
 
     //ADD UNITS
+    const W = isMobile ? window.screen.width : window.innerWidth
     const props = {
       scene: this.scene,
-      type: window.screen.width > 720 ? "web" : "mobile"
+      type: W > 720 ? "web" : "mobile"
     }
     this.units = []
     this.props.units.forEach(unit => this.units.push(new unit(props)))
@@ -62,9 +65,10 @@ export default class ThreeScene {
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
 
-    window.screen.width > 720 ? this.units[0].switchType("web") : this.units[0].switchType("mobile")
-
-    console.log(`three-scene elem resized (${ViewerDiv.clientWidth}, ${ViewerDiv.clientHeight})`)
+    const W = isMobile ? window.screen.width : window.innerWidth
+    W > 720 ? this.units[0].switchType("web") : this.units[0].switchType("mobile")
+    // console.log(W > 720 ? "switched 2 web" : "switched 2 mobile")
+    // console.log(`three-scene elem resized (${ViewerDiv.clientWidth}, ${ViewerDiv.clientHeight})`)
   }
 
   animate = () => {
