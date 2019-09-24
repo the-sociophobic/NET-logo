@@ -89,8 +89,9 @@ export default class Logo extends TransitionsHandler {
 
     if (isTouchDevice()) {
       this.handleScroll()
-      document.addEventListener('wheel', this.handleScroll, false)
+      document.addEventListener('scroll', this.handleScroll, false)
       document.addEventListener('touchmove', this.handleScroll, false)
+      document.addEventListener('gesturechange', this.handleScroll, false)
     }
     else
       document.addEventListener('mousemove', this.handleMouseMove, false)

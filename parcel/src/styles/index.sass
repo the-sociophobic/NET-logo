@@ -9,10 +9,12 @@
   position: absolute
 
 .three-scene-container
-  // width: 100%
-  @media (min-width: 721px)
+  width: 100%
+  @media only screen and (min-width: 721px) and (-webkit-max-device-pixel-ratio: 1.5)
     padding-top: 100% / 16 * 9
-  @media (max-width: 720px)
+  @media only screen and (max-width: 720px) and (-webkit-max-device-pixel-ratio: 1.5)
+    padding-top: 100% / 9 * 16
+  @media only screen and (max-width: 1080px) and (-webkit-min-device-pixel-ratio: 1.6)
     padding-top: 100% / 9 * 16
   position: relative
   #three-scene

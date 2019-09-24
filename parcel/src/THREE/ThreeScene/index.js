@@ -47,7 +47,7 @@ export default class ThreeScene {
     //ADD UNITS
     const props = {
       scene: this.scene,
-      type: ViewerDiv.clientWidth > 720 ? "web" : "mobile"
+      type: window.screen.width > 720 ? "web" : "mobile"
     }
     this.units = []
     this.props.units.forEach(unit => this.units.push(new unit(props)))
@@ -62,7 +62,7 @@ export default class ThreeScene {
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
 
-    window.innerWidth > 720 ? this.units[0].switchType("web") : this.units[0].switchType("mobile")
+    window.screen.width > 720 ? this.units[0].switchType("web") : this.units[0].switchType("mobile")
 
     console.log(`three-scene elem resized (${ViewerDiv.clientWidth}, ${ViewerDiv.clientHeight})`)
   }
