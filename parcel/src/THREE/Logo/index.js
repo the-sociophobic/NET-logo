@@ -1,6 +1,7 @@
-import defaultMask from './img/defaultMask.png'
+import defaultMaskWeb from './img/defaultMask.png'
 import defaultMaskMobile from './img/defaultMaskMobile.png'
-import defaultBackground from './img/defaultBackground.jpg'
+import defaultBackgroundWeb from './img/defaultBackground.jpg'
+import defaultBackgroundMobile from './img/defaultBackground.jpg'
 
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
@@ -8,108 +9,109 @@ import { WaterRefractionShader } from './WaterRefractionShader'
 import TransitionsHandler from '../TransitionsHandler'
 
 
+const zOffset = 20
 const clamp = (value, min, max) => Math.min(max, Math.max(value, min))
 const isTouchDevice = () => {  
   try {  
-    document.createEvent("TouchEvent");  
-    return true;  
+    document.createEvent("TouchEvent")  
+    return true  
   } catch (e) {  
-    return false;  
+    return false  
   }  
+}
+const hideMesh = mesh => {
+  mesh.position.set(
+    mesh.position.x,
+    mesh.position.y,
+    mesh.position.z - zOffset
+  )
+}
+const showMesh = mesh => {
+  mesh.position.set(
+    mesh.position.x,
+    mesh.position.y,
+    mesh.position.z + zOffset
+  )
 }
 
 
 export default class Logo extends TransitionsHandler {
   constructor(props) {
     super(props)
-    // console.log(window.innerWidth / window.devicePixelRatio)
-    // console.log(window.innerWidth)
-    // console.log(window)
-    // console.log(document.documentElement.clientWidth)
-    if ((window.clientWidth || window.innerWidth || ocument.documentElement.clientWidth) > 720)
-      this.initDesktop(props)
+
+    const { scene, type } = props
+
+    this.type = type
+    this.web = {}
+    this.mobile = {}
+
+    const geometryWeb = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
+    const geometryMobile = new THREE.PlaneGeometry(7.20, 12.80, 1, 1)
+    let invisibleMaterial = new THREE.MeshBasicMaterial({color: "aabbcc99"})
+
+    this.web.fullyVisiblePlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
+    this.web.fullyVisiblePlane.position.set(0, 0, -1 - (type === "web" ? 0 : zOffset))
+    this.web.fullyVisiblePlane.scale.set(1.02, 1.02, 1.02)
+    scene.add(this.web.fullyVisiblePlane)
+    this.mobile.fullyVisiblePlane = new THREE.Mesh(geometryMobile, invisibleMaterial)
+    this.mobile.fullyVisiblePlane.position.set(0, 0, -1 - (type === "mobile" ? 0 : zOffset))
+    this.mobile.fullyVisiblePlane.scale.set(1.02, 1.02, 1.02)
+    scene.add(this.mobile.fullyVisiblePlane)
+
+    this.web.additionalPlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
+    this.web.additionalPlane.position.set(0, 0, -1.1 - (type === "web" ? 0 : zOffset))
+    this.web.additionalPlane.scale.set(1.3, 1.3, 1.3)
+    scene.add(this.web.additionalPlane)
+    this.mobile.additionalPlane = new THREE.Mesh(geometryMobile, invisibleMaterial)
+    this.mobile.additionalPlane.position.set(0, 0, -1.1 - (type === "mobile" ? 0 : zOffset))
+    this.mobile.additionalPlane.scale.set(1.3, 1.3, 1.3)
+    scene.add(this.mobile.additionalPlane)
+
+
+    this.web.refractor = new Refractor( geometryWeb, {
+      color: 0x999999,
+      textureWidth: 1024,
+      textureHeight: 1024,
+      shader: WaterRefractionShader
+    } )
+    scene.add( this.web.refractor )
+    this.mobile.refractor = new Refractor( geometryMobile, {
+      color: 0x999999,
+      textureWidth: 1024,
+      textureHeight: 1024,
+      shader: WaterRefractionShader
+    } )
+    scene.add( this.mobile.refractor )
+    type === "web" ? this.mobile.refractor.position.set(0, 0, -zOffset) : this.web.refractor.position.set(0, 0, -zOffset)
+
+
+
+    if (isTouchDevice()) {
+      this.handleScroll()
+      document.addEventListener('wheel', this.handleScroll, false)
+      document.addEventListener('touchmove', this.handleScroll, false)
+    }
     else
-      this.initMobile(props)
-    // window.addEventListener("resize", () => console.log(window.innerWidth))
-  }
+      document.addEventListener('mousemove', this.handleMouseMove, false)
 
-  initDesktop = props => {
-    const { scene } = props
 
-    const geometry = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
 
-    const backgrounds = document.getElementsByClassName("custom-background-desktop")
-    const backgroundImage = backgrounds.length > 0 ?
-      backgrounds[Math.round(Math.random() * backgrounds.length)].src
+    const backgroundsWeb = document.getElementsByClassName("custom-background-web")
+    const backgroundsMobile = document.getElementsByClassName("custom-background-mobile")
+    const backgroundWeb = backgroundsWeb.length > 0 ?
+      backgroundsWeb[Math.round(Math.random() * (backgroundsWeb.length - 1))].src
       :
-      defaultBackground
-    const maskImage = document.getElementById("custom-mask") ?
+      defaultBackgroundWeb
+    const backgroundMobile = backgroundsMobile.length > 0 ?
+      backgroundsMobile[Math.round(Math.random() * (backgroundsMobile.length - 1))].src
+      :
+      defaultBackgroundMobile
+
+    const maskWeb = document.getElementById("custom-mask-web") ?
       document.getElementById("custom-mask").src
       :
-      defaultMask
-
-    let refractionK = document.getElementById("refraction-k") ?
-      document.getElementById("refraction-k").textContent
-      :
-      "0.15"
-    refractionK = parseFloat(refractionK)
-
-    //BACKGROUND
-    new THREE.TextureLoader()
-    .load(backgroundImage, texture => {
-
-      let material = new THREE.MeshBasicMaterial({ map: texture })
-
-      this.fullyVisiblePlane = new THREE.Mesh(geometry, material)
-      this.fullyVisiblePlane.position.set(0, 0, -1)
-      this.fullyVisiblePlane.scale.set(1.02, 1.02, 1.02)
-
-      this.additionalPlane = new THREE.Mesh(geometry, material)
-      this.additionalPlane.position.set(0, 0, -1.1)
-      this.additionalPlane.scale.set(1.3, 1.3, 1.3)
-
-      if (isTouchDevice()) {
-        this.handleScroll()
-        // document.addEventListener('wheel', this.handleScroll, false)
-        // document.addEventListener('touchmove', this.handleScroll, false)
-      }
-      else
-        document.addEventListener('mousemove', this.handleMouseMove, false)
-
-      scene.add(this.fullyVisiblePlane)
-      scene.add(this.additionalPlane)
-    })
-
-
-    //REFRACTION
-    new THREE.TextureLoader()
-    .load(maskImage, texture => {
-
-      let refractor = new Refractor( geometry, {
-        color: 0x999999,
-        textureWidth: 1024,
-        textureHeight: 1024,
-        shader: WaterRefractionShader
-      } );
-
-      refractor.material.uniforms[ "tDudv" ].value = texture
-      refractor.material.uniforms[ "refractionK" ].value = refractionK
-
-      scene.add( refractor );
-    })
-  }
-
-  initMobile = props => {
-    const { scene } = props
-
-    const geometry = new THREE.PlaneGeometry(7.20, 12.80, 1, 1)
-
-    const backgrounds = document.getElementsByClassName("custom-background-mobile")
-    const backgroundImage = backgrounds.length > 0 ?
-      backgrounds[Math.round(Math.random() * (backgrounds.length - 1))].src
-      :
-      defaultBackground
-    const maskImage = document.getElementById("custom-mask") ?
+      defaultMaskWeb
+    const maskMobile = document.getElementById("custom-mask-mobile") ?
       document.getElementById("custom-mask").src
       :
       defaultMaskMobile
@@ -122,62 +124,78 @@ export default class Logo extends TransitionsHandler {
 
     //BACKGROUND
     new THREE.TextureLoader()
-    .load(backgroundImage, texture => {
-
+    .load(backgroundWeb, texture => {
       let material = new THREE.MeshBasicMaterial({ map: texture })
+      this.web.fullyVisiblePlane.material = material
+      this.web.additionalPlane.material = material
+    })
+    new THREE.TextureLoader()
+    .load(backgroundMobile, texture => {
+      let material = new THREE.MeshBasicMaterial({ map: texture })
+      this.mobile.fullyVisiblePlane.material = material
+      this.mobile.additionalPlane.material = material
 
-      this.fullyVisiblePlane = new THREE.Mesh(geometry, material)
-      this.fullyVisiblePlane.position.set(0, 0, -1)
-      this.fullyVisiblePlane.scale.set(1.02, 1.02, 1.02)
-
-      this.additionalPlane = new THREE.Mesh(geometry, material)
-      this.additionalPlane.position.set(0, 0, -1.1)
-      this.additionalPlane.scale.set(1.3, 1.3, 1.3)
-
-      if (isTouchDevice()) {
-        this.handleScroll()
-        document.addEventListener('wheel', this.handleScroll, false)
-        document.addEventListener('touchmove', this.handleScroll, false)
-      }
-      else
-        document.addEventListener('mousemove', this.handleMouseMove, false)
-
-      scene.add(this.fullyVisiblePlane)
-      scene.add(this.additionalPlane)
     })
 
 
     //REFRACTION
     new THREE.TextureLoader()
-    .load(maskImage, texture => {
-
-      let refractor = new Refractor( geometry, {
-        color: 0x999999,
-        textureWidth: 1024,
-        textureHeight: 1024,
-        shader: WaterRefractionShader
-      } );
-
-      refractor.material.uniforms[ "tDudv" ].value = texture
-      refractor.material.uniforms[ "refractionK" ].value = refractionK
-
-      scene.add( refractor );
+    .load(maskWeb, texture => {
+      this.web.refractor.material.uniforms[ "tDudv" ].value = texture
+      this.web.refractor.material.uniforms[ "refractionK" ].value = refractionK
+    })
+    new THREE.TextureLoader()
+    .load(maskMobile, texture => {
+      this.mobile.refractor.material.uniforms[ "tDudv" ].value = texture
+      this.mobile.refractor.material.uniforms[ "refractionK" ].value = refractionK
     })
   }
+
+
+  switchType = type => {
+    if (type === this.type || (type !== "web" && type !== "mobile"))
+      return
+    
+    this.type = type
+    let toHide, toShow
+    if (type === "web") {
+      toHide = this.mobile
+      toShow = this.web
+    } else {
+      toHide = this.web
+      toShow = this.mobile
+    }
+    showMesh(toShow.fullyVisiblePlane)
+    showMesh(toShow.additionalPlane)
+    showMesh(toShow.refractor)
+
+    hideMesh(toHide.fullyVisiblePlane)
+    hideMesh(toHide.additionalPlane)
+    hideMesh(toHide.refractor)
+  }
+
 
   handleScroll = e => {
     const threeSceneElement = document.getElementById("three-scene")
     const alpha = clamp((document.documentElement.scrollTop || document.body.scrollTop) / threeSceneElement.offsetHeight - .5, -.5, .5)
   
-    this.fullyVisiblePlane.position.set(
+    this.web.fullyVisiblePlane.position.set(
       -alpha * 3.3,
       alpha * 1.85,
-      this.fullyVisiblePlane.position.z)
+      this.web.fullyVisiblePlane.position.z)
+    this.mobile.fullyVisiblePlane.position.set(
+      -alpha * 3.3,
+      alpha * 1.85,
+      this.mobile.fullyVisiblePlane.position.z)
   
-    this.additionalPlane.position.set(
+    this.web.additionalPlane.position.set(
       -alpha * 3.3,
       alpha * 1.85,
-      this.additionalPlane.position.z)
+      this.web.additionalPlane.position.z)
+    this.mobile.additionalPlane.position.set(
+      -alpha * 3.3,
+      alpha * 1.85,
+      this.mobile.additionalPlane.position.z)
   }
   
   handleMouseMove = e => {
@@ -204,45 +222,75 @@ export default class Logo extends TransitionsHandler {
     const alphaX = -clamp(e.pageX / window.innerWidth - .5, -.5, .5)
     const alphaY = clamp(e.pageY / window.innerHeight - .5, -.5, .5)
   
-    this.fullyVisiblePlane.position.set(
+    this.web.fullyVisiblePlane.position.set(
       alphaX * 3.3,
       alphaY * 1.85,
-      this.fullyVisiblePlane.position.z)
+      this.web.fullyVisiblePlane.position.z)
+    this.mobile.fullyVisiblePlane.position.set(
+      alphaX * 3.3,
+      alphaY * 1.85,
+      this.mobile.fullyVisiblePlane.position.z)
   
-    this.additionalPlane.position.set(
+    this.web.additionalPlane.position.set(
       alphaX * 3.3,
       alphaY * 1.85,
-      this.additionalPlane.position.z)
+      this.web.additionalPlane.position.z)
+    this.mobile.additionalPlane.position.set(
+      alphaX * 3.3,
+      alphaY * 1.85,
+      this.mobile.additionalPlane.position.z)
   }
 
   handleFirstMouseMove = e => {
     const alphaX = -clamp(e.pageX / window.innerWidth - .5, -.5, .5)
     const alphaY = clamp(e.pageY / window.innerHeight - .5, -.5, .5)
-    const fullyVisiblePlaneNewPos = new THREE.Vector3(
+    const fullyVisiblePlaneNewPosWeb = new THREE.Vector3(
       alphaX * 3.3,
       alphaY * 1.85,
-      this.fullyVisiblePlane.position.z
+      this.web.fullyVisiblePlane.position.z
     )
-    const additionalPlaneNewPos = new THREE.Vector3(
+    const fullyVisiblePlaneNewPosMobile = new THREE.Vector3(
       alphaX * 3.3,
       alphaY * 1.85,
-      this.additionalPlane.position.z
+      this.mobile.fullyVisiblePlane.position.z
+    )
+    const additionalPlaneNewPosWeb = new THREE.Vector3(
+      alphaX * 3.3,
+      alphaY * 1.85,
+      this.web.additionalPlane.position.z
+    )
+    const additionalPlaneNewPosMobile = new THREE.Vector3(
+      alphaX * 3.3,
+      alphaY * 1.85,
+      this.mobile.additionalPlane.position.z
     )
 
     let numberOfFrames = new THREE.Vector3()
-      .subVectors(this.fullyVisiblePlane.position, fullyVisiblePlaneNewPos)
+      .subVectors(this.web.fullyVisiblePlane.position, fullyVisiblePlaneNewPosWeb)
       .lengthSq() ** .5 * 8
     numberOfFrames = Math.ceil(numberOfFrames)
 
     this.registerTransition(
-      this.fullyVisiblePlane.position,
-      fullyVisiblePlaneNewPos,
+      this.web.fullyVisiblePlane.position,
+      fullyVisiblePlaneNewPosWeb,
       numberOfFrames,
       'easeInOut2'
     )
     this.registerTransition(
-      this.additionalPlane.position,
-      additionalPlaneNewPos,
+      this.mobile.fullyVisiblePlane.position,
+      fullyVisiblePlaneNewPosMobile,
+      numberOfFrames,
+      'easeInOut2'
+    )
+    this.registerTransition(
+      this.web.additionalPlane.position,
+      additionalPlaneNewPosWeb,
+      numberOfFrames,
+      'easeInOut2'
+    )
+    this.registerTransition(
+      this.mobile.additionalPlane.position,
+      additionalPlaneNewPosMobile,
       numberOfFrames,
       'easeInOut2'
     )

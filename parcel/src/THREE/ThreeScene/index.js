@@ -37,8 +37,12 @@ export default class ThreeScene {
     this.camera.position.set(0, 0, 6)
 
     //ADD UNITS
+    const props = {
+      scene: this.scene,
+      type: ViewerDiv.clientWidth > 720 ? "web" : "mobile"
+    }
     this.units = []
-    this.props.units.forEach(unit => this.units.push(new unit({scene: this.scene})))
+    this.props.units.forEach(unit => this.units.push(new unit(props)))
 
     if (!this.frameId)
       this.frameId = requestAnimationFrame(this.animate.bind(this))
@@ -49,6 +53,9 @@ export default class ThreeScene {
     this.camera.aspect = ViewerDiv.clientWidth / ViewerDiv.clientHeight
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
+
+    window.innerWidth > 720 ? this.units[0].switchType("web") : this.units[0].switchType("mobile")
+
     console.log(`three-scene elem resized (${ViewerDiv.clientWidth}, ${ViewerDiv.clientHeight})`)
   }
 
