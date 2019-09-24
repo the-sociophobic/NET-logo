@@ -3,17 +3,15 @@ import ResizeObserver from 'resize-observer-polyfill'
 export default class ThreeScene {
   constructor(props) {
     this.props = props
-    window.onload = this.init.bind(this)
+    //Wait for css to apply to elem size. Should prevent infinite event firing
+    //React's componentDidMount() alternative
+    window.onload = () => setTimeout(() => this.init.bind(this)(), 500)
   }
 
   init() {
     const ViewerDiv = document.getElementById("three-scene")
-    //Wait for css to apply to elem size. Should prevent infinite event firing
-    //React's componentDidMount() alternative
-    setTimeout(() => 
-      this.resizeObs = new ResizeObserver(this.updateDimensions.bind(this))
-        .observe(ViewerDiv)
-    , 300)
+    this.resizeObs = new ResizeObserver(this.updateDimensions.bind(this))
+      .observe(ViewerDiv)
 
     const width = ViewerDiv.clientWidth
     const height = ViewerDiv.clientHeight
