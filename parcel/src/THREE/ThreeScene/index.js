@@ -1,5 +1,6 @@
 import ResizeObserver from 'resize-observer-polyfill'
 import isMobile from '../../utils/isMobile'
+import isTouchDevice from '../../utils/isTouchDevice'
 
 
 export default class ThreeScene {
@@ -31,7 +32,10 @@ export default class ThreeScene {
     //ADD RENDERER
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     this.renderer.setSize(width, height)
-    this.renderer.setPixelRatio(1)
+    if (isTouchDevice())
+      this.renderer.setPixelRatio(.5)
+    else
+      this.renderer.setPixelRatio(1)
     ViewerDiv.appendChild(this.renderer.domElement)
 
     //ADD SCENE

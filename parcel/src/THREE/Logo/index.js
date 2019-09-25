@@ -6,19 +6,13 @@ import defaultBackgroundMobile from './img/defaultBackground.jpg'
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
 
+import isTouchDevice from './../../utils/isTouchDevice'
+
 import TransitionsHandler from '../TransitionsHandler'
 
 
 const zOffset = 20
 const clamp = (value, min, max) => Math.min(max, Math.max(value, min))
-const isTouchDevice = () => {  
-  try {  
-    document.createEvent("TouchEvent")  
-    return true  
-  } catch (e) {  
-    return false  
-  }  
-}
 const hideMesh = mesh => {
   mesh.position.set(
     mesh.position.x,
@@ -179,7 +173,7 @@ export default class Logo extends TransitionsHandler {
 
   handleScroll = e => {
     const threeSceneElement = document.getElementById("three-scene")
-    const getBodyScrollTop = () => (document.scrollingElement || document.documentElement).scrollTop
+    const getBodyScrollTop = () => Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
     const alpha = clamp(getBodyScrollTop() / threeSceneElement.offsetHeight - .5, -.5, .5)
     console.log(getBodyScrollTop())
   
