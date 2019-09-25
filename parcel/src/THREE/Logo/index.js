@@ -178,6 +178,8 @@ export default class Logo extends TransitionsHandler {
 
 
   handleScroll = e => {
+    console.log("handleScroll event says:")
+    console.log(e)
     const threeSceneElement = document.getElementById("three-scene")
     const alpha = clamp((document.documentElement.scrollTop || document.body.scrollTop) / threeSceneElement.offsetHeight - .5, -.5, .5)
   
