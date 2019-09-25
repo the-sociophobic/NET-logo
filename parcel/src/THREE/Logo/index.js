@@ -179,7 +179,11 @@ export default class Logo extends TransitionsHandler {
 
   handleScroll = e => {
     const threeSceneElement = document.getElementById("three-scene")
-    const alpha = clamp((window.pageYOffset) / threeSceneElement.offsetHeight - .5, -.5, .5)
+    const alpha = clamp((document.documentElement.scrollTop || document.body.scrollTop) / threeSceneElement.offsetHeight - .5, -.5, .5)
+    console.log(document.documentElement.scrollTop)
+    console.log(document.body.scrollTop)
+    console.log(window.pageYOffset)
+    console.log(threeSceneElement.scrollTop)
   
     this.web.fullyVisiblePlane.position.set(
       -alpha * 3.3,
