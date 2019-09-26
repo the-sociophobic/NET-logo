@@ -6,7 +6,7 @@ import defaultBackgroundMobile from './img/defaultBackground.jpg'
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
 
-import isTouchDevice from './../../utils/isTouchDevice'
+import isTouchDevice from '../../utils/isTouchDevice'
 
 import TransitionsHandler from '../TransitionsHandler'
 
@@ -175,7 +175,7 @@ export default class Logo extends TransitionsHandler {
     const threeSceneElement = document.getElementById("three-scene")
     const getBodyScrollTop = () => Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
     const alpha = clamp(getBodyScrollTop() / threeSceneElement.offsetHeight - .5, -.5, .5)
-    console.log(getBodyScrollTop())
+    // console.log(getBodyScrollTop())
   
     this.web.fullyVisiblePlane.position.set(
       -alpha * 3.3,
