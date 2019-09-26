@@ -1,8 +1,6 @@
 import defaultMaskWeb from './img/defaultMask.png'
 import defaultMaskMobile from './img/defaultMaskMobile.png'
-// import defaultBackgroundWeb from './img/defaultBackground.jpg'
-// import defaultBackgroundMobile from './img/defaultBackground.jpg'
-import defaultBackgrounds from './img'
+import defaultBackgrounds from './img/backgrounds'
 
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
@@ -43,13 +41,14 @@ export default class Logo extends TransitionsHandler {
 
     const geometryWeb = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
     const geometryMobile = new THREE.PlaneGeometry(7.20, 12.80, 1, 1)
-    let invisibleMaterial = new THREE.MeshBasicMaterial({color: "aabbcc"})
+    const geometryMobileSquare = new THREE.PlaneGeometry(12.80, 12.80, 1, 1)
+    let invisibleMaterial = new THREE.MeshBasicMaterial({color: "#aabbcc"})
 
     this.web.fullyVisiblePlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
     this.web.fullyVisiblePlane.position.set(0, 0, -1 - (type === "web" ? 0 : zOffset))
     this.web.fullyVisiblePlane.scale.set(1.02, 1.02, 1.02)
     scene.add(this.web.fullyVisiblePlane)
-    this.mobile.fullyVisiblePlane = new THREE.Mesh(geometryMobile, invisibleMaterial)
+    this.mobile.fullyVisiblePlane = new THREE.Mesh(geometryMobileSquare, invisibleMaterial)
     this.mobile.fullyVisiblePlane.position.set(0, 0, -1 - (type === "mobile" ? 0 : zOffset))
     this.mobile.fullyVisiblePlane.scale.set(1.19, 1.19, 1.19)
     scene.add(this.mobile.fullyVisiblePlane)
@@ -58,7 +57,7 @@ export default class Logo extends TransitionsHandler {
     this.web.additionalPlane.position.set(0, 0, -1.1 - (type === "web" ? 0 : zOffset))
     this.web.additionalPlane.scale.set(1.3, 1.3, 1.3)
     scene.add(this.web.additionalPlane)
-    this.mobile.additionalPlane = new THREE.Mesh(geometryMobile, invisibleMaterial)
+    this.mobile.additionalPlane = new THREE.Mesh(geometryMobileSquare, invisibleMaterial)
     this.mobile.additionalPlane.position.set(0, 0, -1.1 - (type === "mobile" ? 0 : zOffset))
     this.mobile.additionalPlane.scale.set(1.3, 1.3, 1.3)
     scene.add(this.mobile.additionalPlane)
@@ -127,6 +126,16 @@ export default class Logo extends TransitionsHandler {
     .load(maskMobile, texture => {
       this.mobile.refractor.material.uniforms[ "tDudv" ].value = texture
       this.mobile.refractor.material.uniforms[ "refractionK" ].value = refractionK
+
+      const showThreeSceneInterval = setInterval(() => {
+        const elem = document.getElementById("three-scene")
+        
+        if (!elem)
+          return
+
+        elem.style.opacity = 1
+        clearInterval(showThreeSceneInterval)
+      })
     })
   }
 
