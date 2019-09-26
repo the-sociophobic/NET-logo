@@ -84,8 +84,8 @@ export default class Logo extends TransitionsHandler {
 
     if (isTouchDevice()) {
       this.handleScroll()
-      window.addEventListener('gesturechange', debounce(this.handleScroll, 7), true)
-      window.addEventListener('touchmove', debounce(this.handleScroll, 7), true)
+      window.addEventListener('gesturechange', debounce(this.handleScroll, 3), true)
+      window.addEventListener('touchmove', debounce(this.handleScroll, 3), true)
     }
     else
       window.addEventListener('mousemove', this.handleMouseMove, false)
