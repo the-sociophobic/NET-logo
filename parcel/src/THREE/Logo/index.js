@@ -7,6 +7,7 @@ import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
 
 import isTouchDevice from '../../utils/isTouchDevice'
+import debounce from '../../utils/debounce'
 
 import TransitionsHandler from '../TransitionsHandler'
 
@@ -83,7 +84,8 @@ export default class Logo extends TransitionsHandler {
 
     if (isTouchDevice()) {
       this.handleScroll()
-      window.addEventListener('touchmove', this.handleScroll, true)
+      window.addEventListener('gesturechange', debounce(this.handleScroll, 7), true)
+      window.addEventListener('touchmove', debounce(this.handleScroll, 7), true)
     }
     else
       window.addEventListener('mousemove', this.handleMouseMove, false)
