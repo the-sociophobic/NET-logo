@@ -1,7 +1,8 @@
 import defaultMaskWeb from './img/defaultMask.png'
 import defaultMaskMobile from './img/defaultMaskMobile.png'
-import defaultBackgroundWeb from './img/defaultBackground.jpg'
-import defaultBackgroundMobile from './img/defaultBackground.jpg'
+// import defaultBackgroundWeb from './img/defaultBackground.jpg'
+// import defaultBackgroundMobile from './img/defaultBackground.jpg'
+import defaultBackgrounds from './img'
 
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
@@ -91,32 +92,14 @@ export default class Logo extends TransitionsHandler {
       window.addEventListener('mousemove', this.handleMouseMove, false)
 
 
+    const randomIndex = Math.round(Math.random() * (defaultBackgrounds.desktop.length - 1))
+    const backgroundWeb = defaultBackgrounds.desktop[randomIndex]
+    const backgroundMobile = defaultBackgrounds.mobile[randomIndex]
 
-    const backgroundsWeb = document.getElementsByClassName("custom-background-web")
-    const backgroundsMobile = document.getElementsByClassName("custom-background-mobile")
-    const backgroundWeb = backgroundsWeb.length > 0 ?
-      backgroundsWeb[Math.round(Math.random() * (backgroundsWeb.length - 1))].src
-      :
-      defaultBackgroundWeb
-    const backgroundMobile = backgroundsMobile.length > 0 ?
-      backgroundsMobile[Math.round(Math.random() * (backgroundsMobile.length - 1))].src
-      :
-      defaultBackgroundMobile
+    const maskWeb = defaultMaskWeb
+    const maskMobile = defaultMaskMobile
 
-    const maskWeb = document.getElementById("custom-mask-web") ?
-      document.getElementById("custom-mask-web").src
-      :
-      defaultMaskWeb
-    const maskMobile = document.getElementById("custom-mask-mobile") ?
-      document.getElementById("custom-mask-mobile").src
-      :
-      defaultMaskMobile
-
-    let refractionK = document.getElementById("refraction-k") ?
-      document.getElementById("refraction-k").textContent
-      :
-      "0.15"
-    refractionK = parseFloat(refractionK)
+    let refractionK = 0.15
 
     //BACKGROUND
     new THREE.TextureLoader()
@@ -265,7 +248,7 @@ export default class Logo extends TransitionsHandler {
 
     let numberOfFrames = new THREE.Vector3()
       .subVectors(this.web.fullyVisiblePlane.position, fullyVisiblePlaneNewPosWeb)
-      .lengthSq() ** .5 * 8
+      .lengthSq() ** .5 * 5
     numberOfFrames = Math.ceil(numberOfFrames)
 
     this.registerTransition(
