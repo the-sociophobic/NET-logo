@@ -174,7 +174,8 @@ export default class Logo extends TransitionsHandler {
 
   handleScroll = e => {
     const threeSceneElement = document.getElementById("three-scene")
-    const getBodyScrollTop = () => Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
+    // const getBodyScrollTop = () => Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop, threeSceneElement.scrollTop)
+    const getBodyScrollTop = () => Math.max(-threeSceneElement.getBoundingClientRect().top)
     const alpha = clamp(getBodyScrollTop() / threeSceneElement.offsetHeight - .5, -.5, .5)
     console.log(getBodyScrollTop())
 
