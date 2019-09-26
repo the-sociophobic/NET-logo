@@ -83,12 +83,13 @@ export default class Logo extends TransitionsHandler {
 
     if (isTouchDevice()) {
       this.handleScroll()
-      document.addEventListener('scroll', this.handleScroll, false)
-      document.addEventListener('touchmove', this.handleScroll, false)
-      document.addEventListener('gesturechange', this.handleScroll, false)
+      window.addEventListener('scroll', this.handleScroll, true)
+      window.addEventListener('touchmove', this.handleScroll, true)
+      window.addEventListener('gesturechange', this.handleScroll, true)
+      window.addEventListener('touchmove', this.handleScroll, true)
     }
     else
-      document.addEventListener('mousemove', this.handleMouseMove, false)
+      window.addEventListener('mousemove', this.handleMouseMove, false)
 
 
 
@@ -175,7 +176,8 @@ export default class Logo extends TransitionsHandler {
     const threeSceneElement = document.getElementById("three-scene")
     const getBodyScrollTop = () => Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
     const alpha = clamp(getBodyScrollTop() / threeSceneElement.offsetHeight - .5, -.5, .5)
-    // console.log(getBodyScrollTop())
+    console.log(getBodyScrollTop())
+
   
     this.web.fullyVisiblePlane.position.set(
       -alpha * 3.3,
