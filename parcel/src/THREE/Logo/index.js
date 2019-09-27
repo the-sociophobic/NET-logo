@@ -96,8 +96,8 @@ export default class Logo extends TransitionsHandler {
     const backgroundWeb = backgroundsWeb ? randomElem(backgroundsWeb).src : defaultBackground
     const backgroundMobile = backgroundsMobile ? randomElem(backgroundsMobile).src : defaultBackground
 
-    const maskWeb = defaultMaskWeb
-    const maskMobile = defaultMaskMobile
+    const maskWeb = document.getElementById("custom-mask-web") ? document.getElementById("custom-mask-web").src : defaultMaskWeb
+    const maskMobile = document.getElementById("custom-mask-mobile") ? document.getElementById("custom-mask-mobile").src : defaultMaskMobile
 
     let refractionK = 0.15
 
@@ -135,6 +135,7 @@ export default class Logo extends TransitionsHandler {
           return
 
         elem.style.opacity = 1
+        console.log(elem.style.opacity)
         clearInterval(showThreeSceneInterval)
       })
     })
