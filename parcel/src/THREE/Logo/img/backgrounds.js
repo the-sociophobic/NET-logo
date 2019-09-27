@@ -10,7 +10,7 @@ export default {
   ],
   mobileMask: "https://sun9-14.userapi.com/c856024/v856024281/10645b/aXz8acV5R8w.jpg",
   mobile: [
-    "://sun9-27.userapi.com/c851320/v851320412/1cf54b/hWy_K4et3_4.jpg",
+    "https://sun9-27.userapi.com/c851320/v851320412/1cf54b/hWy_K4et3_4.jpg",
     "https://sun9-68.userapi.com/c851320/v851320412/1cf555/zBiPpnckmio.jpg",
     "https://sun9-38.userapi.com/c851320/v851320412/1cf55f/unBw_pVZIHg.jpg",
     "https://sun9-56.userapi.com/c851320/v851320412/1cf569/zibWDKSYHNg.jpg",
