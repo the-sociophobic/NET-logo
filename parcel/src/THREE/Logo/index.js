@@ -1,19 +1,6 @@
+import defaultBackground from './img/defaultBackground.jpg'
 import defaultMaskWeb from './img/defaultMask.png'
 import defaultMaskMobile from './img/defaultMaskMobile.png'
-// import defaultBackgrounds from './img/backgrounds'
-import desktop1 from './img/desktop/1.jpg'
-import desktop2 from './img/desktop/2.jpg'
-import desktop3 from './img/desktop/3.jpg'
-import desktop4 from './img/desktop/4.jpg'
-import desktop5 from './img/desktop/5.jpg'
-import desktop6 from './img/desktop/6.jpg'
-
-import mobile1 from './img/mobile/1.jpg'
-import mobile2 from './img/mobile/2.jpg'
-import mobile3 from './img/mobile/3.jpg'
-import mobile4 from './img/mobile/4.jpg'
-import mobile5 from './img/mobile/5.jpg'
-import mobile6 from './img/mobile/6.jpg'
 
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
@@ -22,25 +9,6 @@ import isTouchDevice from '../../utils/isTouchDevice'
 import debounce from '../../utils/debounce'
 
 import TransitionsHandler from '../TransitionsHandler'
-
-const defaultBackgrounds = {
-  desktop: [
-    desktop1,
-    desktop2,
-    desktop3,
-    desktop4,
-    desktop5,
-    desktop6,
-  ],
-  mobile: [
-    mobile1,
-    mobile2,
-    mobile3,
-    mobile4,
-    mobile5,
-    mobile6,
-  ],
-}
 
 const zOffset = 20
 const clamp = (value, min, max) => Math.min(max, Math.max(value, min))
@@ -122,9 +90,11 @@ export default class Logo extends TransitionsHandler {
       window.addEventListener('mousemove', this.handleMouseMove, false)
 
 
-    const randomIndex = Math.round(Math.random() * (defaultBackgrounds.desktop.length - 1))
-    const backgroundWeb = defaultBackgrounds.desktop[randomIndex]
-    const backgroundMobile = defaultBackgrounds.mobile[randomIndex]
+    const backgroundsWeb = document.getElementsByClassName("custom-background-web")
+    const backgroundsMobile = document.getElementsByClassName("custom-background-mobile")
+    const randomElem = array => array[Math.round(Math.random() * (array.length - 1))]
+    const backgroundWeb = backgroundsWeb ? randomElem(backgroundsWeb).src : defaultBackground
+    const backgroundMobile = backgroundsMobile ? randomElem(backgroundsMobile).src : defaultBackground
 
     const maskWeb = defaultMaskWeb
     const maskMobile = defaultMaskMobile
