@@ -1,12 +1,9 @@
-import defaultBackground from './img/defaultBackground.jpg'
-import defaultMaskWeb from './img/defaultMask.png'
-import defaultMaskMobile from './img/defaultMaskMobile.png'
+import backgrounds from './img/backgrounds'
 
 import { Refractor } from './Refractor'
 import { WaterRefractionShader } from './WaterRefractionShader'
 
 import isTouchDevice from '../../utils/isTouchDevice'
-import debounce from '../../utils/debounce'
 
 import TransitionsHandler from '../TransitionsHandler'
 
@@ -39,7 +36,7 @@ export default class Logo extends TransitionsHandler {
     this.mobile = {}
 
     const geometryWeb = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
-    const geometryMobile = new THREE.PlaneGeometry(7.20, 12.80, 1, 1)
+    const geometryMobile = new THREE.PlaneGeometry(12.80, 12.80, 1, 1)
     let invisibleMaterial = new THREE.MeshBasicMaterial({color: "#aabbcc"})
 
     this.web.fullyVisiblePlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
@@ -48,7 +45,7 @@ export default class Logo extends TransitionsHandler {
     scene.add(this.web.fullyVisiblePlane)
     this.mobile.fullyVisiblePlane = new THREE.Mesh(geometryMobile, invisibleMaterial)
     this.mobile.fullyVisiblePlane.position.set(0, 0, -1 - (type === "mobile" ? 0 : zOffset))
-    this.mobile.fullyVisiblePlane.scale.set(.85, .85, .85)
+    this.mobile.fullyVisiblePlane.scale.set(1.7, .85, .85)
     scene.add(this.mobile.fullyVisiblePlane)
 
     this.web.additionalPlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
@@ -90,14 +87,12 @@ export default class Logo extends TransitionsHandler {
       window.addEventListener('mousemove', this.handleMouseMove, false)
 
 
-    const backgroundsWeb = document.getElementsByClassName("custom-background-web")
-    const backgroundsMobile = document.getElementsByClassName("custom-background-mobile")
     const randomElem = array => array[Math.round(Math.random() * (array.length - 1))]
-    const backgroundWeb = backgroundsWeb ? randomElem(backgroundsWeb).src : defaultBackground
-    const backgroundMobile = backgroundsMobile ? randomElem(backgroundsMobile).src : defaultBackground
+    const backgroundWeb = randomElem(backgrounds.web)
+    const backgroundMobile = randomElem(backgrounds.mobile)
 
-    const maskWeb = document.getElementById("custom-mask-web") ? document.getElementById("custom-mask-web").src : defaultMaskWeb
-    const maskMobile = document.getElementById("custom-mask-mobile") ? document.getElementById("custom-mask-mobile").src : defaultMaskMobile
+    const maskWeb = backgrounds.webMask
+    const maskMobile = backgrounds.mobileMask
 
     let refractionK = 0.15
 
