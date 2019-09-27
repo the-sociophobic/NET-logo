@@ -49,7 +49,7 @@ export default class Logo extends TransitionsHandler {
     scene.add(this.web.fullyVisiblePlane)
     this.mobile.fullyVisiblePlane = new THREE.Mesh(geometryMobileSquare, invisibleMaterial)
     this.mobile.fullyVisiblePlane.position.set(0, 0, -1 - (type === "mobile" ? 0 : zOffset))
-    this.mobile.fullyVisiblePlane.scale.set(1.19, 1.19, 1.19)
+    this.mobile.fullyVisiblePlane.scale.set(.95, .95, .95)
     scene.add(this.mobile.fullyVisiblePlane)
 
     this.web.additionalPlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
@@ -83,8 +83,9 @@ export default class Logo extends TransitionsHandler {
 
     if (isTouchDevice()) {
       this.handleScroll()
-      window.addEventListener('gesturechange', debounce(this.handleScroll, 3), true)
-      window.addEventListener('touchmove', debounce(this.handleScroll, 3), true)
+      // window.addEventListener('gesturechange', debounce(this.handleScroll, 3), true)
+      // window.addEventListener('touchmove', debounce(this.handleScroll, 3), true)
+      this.scrollUpdateInterval = setInterval(() => this.handleScroll(), 5)
     }
     else
       window.addEventListener('mousemove', this.handleMouseMove, false)
@@ -135,7 +136,7 @@ export default class Logo extends TransitionsHandler {
           return
 
         elem.style.opacity = 1
-        console.log(elem.style.opacity)
+        console.log("opacity set to" + elem.style.opacity)
         clearInterval(showThreeSceneInterval)
       })
     })
@@ -286,6 +287,13 @@ export default class Logo extends TransitionsHandler {
       numberOfFrames,
       'easeInOut2'
     )
+  }
+
+  dispose = () => {
+    if (isTouchDevice())
+      window.removeEventListener('mousemove', this.handleMouseMove, false)
+    else
+      this.scrollUpdateInterval = setInterval()
   }
   
 }
