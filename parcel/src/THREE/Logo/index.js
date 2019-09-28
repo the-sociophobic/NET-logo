@@ -170,7 +170,7 @@ export default class Logo extends TransitionsHandler {
       alpha * 1.85,
       this.web.fullyVisiblePlane.position.z)
     this.mobile.fullyVisiblePlane.position.set(
-      -alpha * 3.3,
+      -alpha * 3.3 - 1.666,
       alpha * 1.85,
       this.mobile.fullyVisiblePlane.position.z)
   
