@@ -45,7 +45,7 @@ export default class Logo extends TransitionsHandler {
     scene.add(this.web.fullyVisiblePlane)
     this.mobile.fullyVisiblePlane = new THREE.Mesh(geometryMobile, invisibleMaterial)
     this.mobile.fullyVisiblePlane.position.set(0, 0, -1 - (type === "mobile" ? 0 : zOffset))
-    this.mobile.fullyVisiblePlane.scale.set(.475, .95, .95)
+    this.mobile.fullyVisiblePlane.scale.set(.6, .95, .95)
     scene.add(this.mobile.fullyVisiblePlane)
 
     this.web.additionalPlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
@@ -170,7 +170,7 @@ export default class Logo extends TransitionsHandler {
       alpha * 1.85,
       this.web.fullyVisiblePlane.position.z)
     this.mobile.fullyVisiblePlane.position.set(
-      -alpha * 3.3 - 1.666,
+      -alpha * 3.3 - 1.1,
       alpha * 1.85,
       this.mobile.fullyVisiblePlane.position.z)
   
