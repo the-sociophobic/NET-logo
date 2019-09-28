@@ -10,6 +10,9 @@ app.get('/net-script', function(req, res) {
 app.get('/net-style', function(req, res) {
   res.sendFile(path.join(__dirname, 'parcel/dist', 'index.css'));
 });
+app.get('/net-loader', function(req, res) {
+  res.sendFile(path.join(__dirname, 'parcel/public/static/media', 'loader.gif'));
+});
 app.get('/*', function(req, res) {
   res.send("NET festival 3d widget files on this port");
 });
