@@ -100,12 +100,14 @@ export default class Logo extends TransitionsHandler {
     new THREE.TextureLoader()
     .load(backgroundWeb, texture => {
       let material = new THREE.MeshBasicMaterial({ map: texture })
+      material.map.minFilter = THREE.LinearFilter
       this.web.fullyVisiblePlane.material = material
       this.web.additionalPlane.material = material
     })
     new THREE.TextureLoader()
     .load(backgroundMobile, texture => {
       let material = new THREE.MeshBasicMaterial({ map: texture })
+      material.map.minFilter = THREE.LinearFilter
       this.mobile.fullyVisiblePlane.material = material
       this.mobile.additionalPlane.material = material
 

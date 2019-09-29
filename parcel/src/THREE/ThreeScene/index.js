@@ -35,8 +35,8 @@ export default class ThreeScene {
     if (isTouchDevice())
       this.renderer.setPixelRatio(1)
     else
-      // this.renderer.setPixelRatio(2)
-      this.renderer.setPixelRatio(1)
+      this.renderer.setPixelRatio(2)
+      // this.renderer.setPixelRatio(1)
     ViewerDiv.appendChild(this.renderer.domElement)
 
     //ADD SCENE
