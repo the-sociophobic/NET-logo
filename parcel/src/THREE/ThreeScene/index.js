@@ -32,9 +32,9 @@ export default class ThreeScene {
     //ADD RENDERER
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     this.renderer.setSize(width, height)
-    if (isTouchDevice())
-      this.renderer.setPixelRatio(1)
-    else
+    // if (isTouchDevice())
+    //   this.renderer.setPixelRatio(1)
+    // else
       this.renderer.setPixelRatio(2)
       // this.renderer.setPixelRatio(1)
     ViewerDiv.appendChild(this.renderer.domElement)
