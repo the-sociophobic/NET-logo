@@ -100,17 +100,18 @@ export default class Logo extends TransitionsHandler {
     var texturesLoaded = 0
     const textureLoaded = () => {
       texturesLoaded++
-      if (texturesLoaded >= 4) {
-        const showThreeSceneInterval = setInterval(() => {
-          const elem = document.getElementById("three-scene")
-          
-          if (!elem)
-            return
-    
-          elem.style.opacity = 1
-          clearInterval(showThreeSceneInterval)
-        })    
-      }
+      if (texturesLoaded >= 4)
+        setTimeout(() => {
+          const showThreeSceneInterval = setInterval(() => {
+            const elem = document.getElementById("three-scene")
+            
+            if (!elem)
+              return
+      
+            elem.style.opacity = 1
+            clearInterval(showThreeSceneInterval)
+          }, 10)
+        }, 50)
     }
 
     //BACKGROUND
