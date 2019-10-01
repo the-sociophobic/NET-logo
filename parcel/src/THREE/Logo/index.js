@@ -96,6 +96,23 @@ export default class Logo extends TransitionsHandler {
 
     let refractionK = 0.15
 
+
+    var texturesLoaded = 0
+    const textureLoaded = () => {
+      texturesLoaded++
+      if (texturesLoaded >= 4) {
+        const showThreeSceneInterval = setInterval(() => {
+          const elem = document.getElementById("three-scene")
+          
+          if (!elem)
+            return
+    
+          elem.style.opacity = 1
+          clearInterval(showThreeSceneInterval)
+        })    
+      }
+    }
+
     //BACKGROUND
     new THREE.TextureLoader()
     .load(backgroundWeb, texture => {
@@ -103,6 +120,7 @@ export default class Logo extends TransitionsHandler {
       material.map.minFilter = THREE.LinearFilter
       this.web.fullyVisiblePlane.material = material
       this.web.additionalPlane.material = material
+      textureLoaded()
     })
     new THREE.TextureLoader()
     .load(backgroundMobile, texture => {
@@ -110,7 +128,7 @@ export default class Logo extends TransitionsHandler {
       material.map.minFilter = THREE.LinearFilter
       this.mobile.fullyVisiblePlane.material = material
       this.mobile.additionalPlane.material = material
-
+      textureLoaded()
     })
 
 
@@ -119,21 +137,13 @@ export default class Logo extends TransitionsHandler {
     .load(maskWeb, texture => {
       this.web.refractor.material.uniforms[ "tDudv" ].value = texture
       this.web.refractor.material.uniforms[ "refractionK" ].value = refractionK
+      textureLoaded()
     })
     new THREE.TextureLoader()
     .load(maskMobile, texture => {
       this.mobile.refractor.material.uniforms[ "tDudv" ].value = texture
       this.mobile.refractor.material.uniforms[ "refractionK" ].value = refractionK
-
-      const showThreeSceneInterval = setInterval(() => {
-        const elem = document.getElementById("three-scene")
-        
-        if (!elem)
-          return
-
-        elem.style.opacity = 1
-        clearInterval(showThreeSceneInterval)
-      })
+      textureLoaded()
     })
   }
 
