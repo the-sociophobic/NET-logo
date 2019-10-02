@@ -28,10 +28,12 @@ export default class EasterEgg extends Unit {
 
   init = () => {
     this.props.switchToEasterEgg()
-    const geometry = new THREE.PlaneGeometry(3, 3, 1, 1)
-    const tempMaterial = new THREE.MeshBasicMaterial({color: "#aabbcc"})
 
-    // backgrounds
+    var sound      = document.createElement('audio')
+    sound.autoplay = "autoplay"
+    sound.src      = 'https://schedule.tochkadostupa.spb.ru/net-easteregg-music'
+    sound.type     = 'audio/mp3'
+    this.props.renderer.domElement.appendChild(sound)
   }
 
   handleScroll = e => {
