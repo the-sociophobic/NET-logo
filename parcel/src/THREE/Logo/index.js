@@ -1,7 +1,8 @@
 import backgrounds from './img/backgrounds'
 
 import { Refractor } from './Refractor'
-import { WaterRefractionShader } from './WaterRefractionShader'
+import WaterRefractionShader from './WaterRefractionShader'
+import BrokenWaterShader from './BrokenWaterShader'
 
 import isTouchDevice from '../../utils/isTouchDevice'
 
@@ -36,7 +37,9 @@ export default class Logo extends TransitionsHandler {
     this.mobile = {}
 
     const geometryWeb = new THREE.PlaneGeometry(19.20, 10.80, 1, 1)
+    this.geometryWeb = geometryWeb
     const geometryMobile = new THREE.PlaneGeometry(12.80, 12.80, 1, 1)
+    this.geometryMobile = geometryMobile
     let invisibleMaterial = new THREE.MeshBasicMaterial({color: "#aabbcc"})
 
     this.web.fullyVisiblePlane = new THREE.Mesh(geometryWeb, invisibleMaterial)
@@ -79,8 +82,6 @@ export default class Logo extends TransitionsHandler {
 
     if (isTouchDevice()) {
       this.handleScroll()
-      // window.addEventListener('gesturechange', debounce(this.handleScroll, 3), true)
-      // window.addEventListener('touchmove', debounce(this.handleScroll, 3), true)
       this.scrollUpdateInterval = setInterval(() => this.handleScroll(), 5)
     }
     else
@@ -297,9 +298,85 @@ export default class Logo extends TransitionsHandler {
 
   dispose = () => {
     if (isTouchDevice())
-      window.removeEventListener('mousemove', this.handleMouseMove, false)
+      clearInterval(this.scrollUpdateInterval)
     else
-      this.scrollUpdateInterval = setInterval()
+      window.removeEventListener('mousemove', this.handleMouseMove, false)
+  }
+
+  switchToEasterEgg() {
+    hideMesh(this.web.fullyVisiblePlane)
+    hideMesh(this.web.additionalPlane)
+    hideMesh(this.web.refractor)
+
+    hideMesh(this.mobile.fullyVisiblePlane)
+    hideMesh(this.mobile.additionalPlane)
+    hideMesh(this.mobile.refractor)
+
+    this.props.scene.background = new THREE.CubeTextureLoader()
+    .load( [ backgrounds.easterEggBG, backgrounds.easterEggBG, backgrounds.easterEggBG, backgrounds.easterEggBG, backgrounds.easterEggBG, backgrounds.easterEggBG ] );
+
+    this.easterEgg = {
+      web: {},
+      mobile: {},
+    }
+    this.easterEgg.web.refractor = new Refractor( this.geometryWeb, {
+      color: 0x999999,
+      textureWidth: 1024,
+      textureHeight: 1024,
+      shader: BrokenWaterShader
+    } )
+    this.easterEgg.mobile.refractor = new Refractor( this.geometryMobile, {
+      color: 0x999999,
+      textureWidth: 1024,
+      textureHeight: 1024,
+      shader: BrokenWaterShader
+    } )
+    if (isTouchDevice())
+      this.props.scene.add(this.easterEgg.mobile.refractor)
+    else
+      this.props.scene.add(this.easterEgg.web.refractor)
+    this.mobile.refractor.scale.set(.83, .83, .83)
+    new THREE.TextureLoader()
+    .load(backgrounds.easterEggMask, texture => {
+      this.easterEgg.web.refractor.material.uniforms[ "tDudv" ].value = texture
+      this.easterEgg.mobile.refractor.material.uniforms[ "tDudv" ].value = texture
+    })
+
+    this.easterEggPlanes = []
+    backgrounds.easterEgg.forEach(bg => {
+      new THREE.TextureLoader()
+      .load(bg, texture => {
+        let material = new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+          opacity: .125 + Math.random() * .35
+        })
+        material.map.minFilter = THREE.LinearFilter
+        const newPlane = new THREE.Mesh(this.geometryWeb, material)
+        this.easterEggPlanes.push(newPlane)
+        this.props.scene.add(newPlane)
+        newPlane.position.set(
+          (Math.random() - .5) * 18,
+          (Math.random() - .5) * 12,
+          (Math.random() - 1) * 12
+        )
+        newPlane.scale.set(
+          Math.random() * 1.1 + .666,
+          Math.random() * 1.1 + .666,
+          Math.random() * 1.1 + .666
+        )
+        this.registerTransition(
+          newPlane.position,
+          new THREE.Vector3(
+            (Math.random() - .5) * 18,
+            (Math.random() - .5) * 12,
+            (Math.random() - 1) * 12
+            ),
+          300 + Math.random() * 300,
+          'easeInOut2'    
+        )
+      })  
+    })
   }
   
 }

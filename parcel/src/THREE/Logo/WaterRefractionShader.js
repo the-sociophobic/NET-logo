@@ -83,4 +83,4 @@ var WaterRefractionShader = {
 	`
 };
 
-export { WaterRefractionShader };
+export default WaterRefractionShader

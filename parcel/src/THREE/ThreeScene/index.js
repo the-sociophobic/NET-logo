@@ -1,6 +1,4 @@
 import ResizeObserver from 'resize-observer-polyfill'
-import isMobile from '../../utils/isMobile'
-import isTouchDevice from '../../utils/isTouchDevice'
 
 
 export default class ThreeScene {
@@ -54,8 +52,10 @@ export default class ThreeScene {
     //ADD UNITS
     const W = Math.min(window.outerWidth, window.innerWidth)
     const props = {
+      renderer: this.renderer,
       scene: this.scene,
-      type: W > 720 ? "web" : "mobile"
+      type: W > 720 ? "web" : "mobile",
+      switchToEasterEgg: () => this.units.forEach(unit => unit.switchToEasterEgg && unit.switchToEasterEgg())
     }
     this.units = []
     this.props.units.forEach(unit => this.units.push(new unit(props)))
@@ -70,12 +70,8 @@ export default class ThreeScene {
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
 
-    // const W = isMobile ? window.screen.width : window.innerWidth
     const W = Math.min(window.outerWidth, window.innerWidth)
     W > 720 ? this.units[0].switchType("web") : this.units[0].switchType("mobile")
-    // console.log(W > 720 ? "switched 2 web" : "switched 2 mobile")
-    // console.log(`three-scene elem resized (${ViewerDiv.clientWidth}, ${ViewerDiv.clientHeight})`)
-    // console.log(window.outerWidth + " vs " + window.innerWidth)
   }
 
   animate = () => {
@@ -87,7 +83,8 @@ export default class ThreeScene {
   componentWillUnmount(){
     this.units.forEach(unit => unit.dispose())
     cancelAnimationFrame(this.frameId)
-    // this.viewerRef.removeChild(this.renderer.domElement)
+    if (this.renderer.domElement)
+      this.viewerRef.removeChild(this.renderer.domElement)
   }
 
 }
