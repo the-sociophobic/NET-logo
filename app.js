@@ -55,7 +55,7 @@ app.get('/net-style', function(req, res) {
 ].forEach(file => app
   .get("/net-" + file.url,
     (req, res) =>
-      res.sendFile(path.join(__dirname, 'parcel/public/static/media', file.fileName + ".mp4"))
+      res.sendFile(path.join(__dirname, 'parcel/public/static/media/quiz-videos', file.fileName + ".mp4"))
   )
 )
 
