@@ -7,15 +7,21 @@ export default class ThreeScene {
     //Wait for css to apply to elem size. Should prevent infinite event firing
     //React's componentDidMount() alternative
     window.onload = () => {
+      var tryCounter = 0
       const elementLoadedChecker = setInterval(() => {
         const ViewerDiv = document.getElementById("three-scene")
+        if (tryCounter >= 25) {
+          clearInterval(elementLoadedChecker)
+          return
+        }
         if (!ViewerDiv) {
           console.log("no #three-scene element in the DOM")
+          tryCounter++
           return
         }
         clearInterval(elementLoadedChecker)
         setTimeout(() => this.init.bind(this)(), 50)
-      }, 100)
+      }, 200)
     }
   }
 

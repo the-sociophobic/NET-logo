@@ -46,3 +46,148 @@
       width: 100%
       height: auto
 
+
+
+
+
+
+
+#quiz
+  *
+    font-family: -apple-system, system-ui, Roboto, "Open Sans", "Helvetica Neue", sans-serif
+    font-weight: normal
+    outline: none
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    line-height: 1
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+  width: 100vw
+  // height: 100vh
+  // background-color: gray
+  .quiz
+    width: 70%
+    margin: auto
+    @media (max-width: 768px)
+      width: calc(100% - 40px)
+    padding: 35px 40px 25px
+    background-color: white
+    margin-top: 50px
+    border: 3px solid black
+    // border-radius: 15px
+    &__h1,
+    &__h2,
+    &__h3
+      font-weight: 800
+    &__h2
+      margin-bottom: 30px
+    &__h3
+      margin: 20px 0
+      text-align: center
+    &__button
+      cursor: pointer
+      outline: none !important
+      text-align: center
+      font-weight: normal
+      text-decoration: none
+      box-sizing: border-box
+      -moz-box-sizing: border-box
+      -webkit-box-sizing: border-box
+      border: 0
+      background-color: transparent
+      font-size: 18px
+      line-height: 2.5
+      font-weight: 700
+      width: 100%
+      margin: 10px 0
+      &--main
+        background-color: black
+        color: white
+        border: 3px solid black
+        &:not(:disabled):hover
+          background-color: white
+          color: black
+        &:disabled
+          cursor: not-allowed
+          opacity: .6
+      &--next,
+      &--again,
+      &--buy
+        @extend .quiz__button--main
+      &--copy
+        border: 4px solid gray
+        font-size: 22px
+        line-height: calc(18px * 2.5)
+        color: gray
+        letter-spacing: .1em
+        &:hover
+          opacity: .7
+
+
+    &__question,
+    &__answer
+
+    &__question
+      &__number
+        width: 100%
+        text-align: center
+        font-weight: 700
+        font-size: 14px
+        color: rgba(0,0,0,.375)
+        margin-bottom: 30px
+      &__options
+        margin-bottom: 50px
+        &__item
+          width: 100%
+          font-size: 18px
+          line-height: 1.5
+          margin-bottom: 10px
+          padding-left: 50px
+          padding-top: 3px
+          position: relative
+          cursor: pointer
+          &:before, &:after
+            position: absolute
+            border-radius: 30px
+            content: ""
+          &:before
+            top: 4px
+            left: 4px
+            width: 22px
+            height: 22px
+            border: 2px solid black
+          &:after
+            top: 10px
+            left: 10px
+            width: 14px
+            height: 14px
+            background-color: black
+            opacity: 0
+            transition: opacity .15s, width .05s, height .05s, top .05s, left .05s
+          &--selected:after
+            top: 10px !important
+            left: 10px !important
+            width: 14px !important
+            height: 14px !important
+            opacity: 1
+          &:hover:after
+            top: 13px
+            left: 13px
+            width: 8px
+            height: 8px
+            opacity: .75
+
+    &__finish
+      &__text
+        margin-bottom: 30px
+      &__h3
+        @extend .quiz__h3
+        text-align: left
+        margin: 30px 0
+      &__point
+        width: 100%
+        font-size: 18px
+        line-height: 1.5
+        margin-bottom: 10px
+        padding-top: 3px

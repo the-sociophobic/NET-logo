@@ -5,6 +5,8 @@
   "author": "the_sociophobic",
   "license": "ISC",
   "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.11.0",
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
