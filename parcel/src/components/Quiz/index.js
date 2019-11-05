@@ -144,12 +144,14 @@ export default class Quiz extends Component {
 
   render = () => {
     return (
-      <div className="quiz">
-        {this.state.currentQuestion < questions.length ?
-          this.renderQuestion(questions[this.state.currentQuestion])
-          :
-          this.renderFinish()
-        }
+      <div className="quiz-container">
+        <div className="quiz">
+          {this.state.currentQuestion < questions.length ?
+            this.renderQuestion(questions[this.state.currentQuestion])
+            :
+            this.renderFinish()
+          }
+        </div>
       </div>
     )
   }

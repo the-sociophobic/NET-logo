@@ -53,6 +53,8 @@
 
 
 #quiz
+  width: 100%
+  position: relative
   *
     font-family: -apple-system, system-ui, Roboto, "Open Sans", "Helvetica Neue", sans-serif
     font-weight: normal
@@ -66,21 +68,27 @@
     zoom: .85
     -moz-transform: scale(.85)
     -moz-transform-origin: 0 0
+  // width: 100vw
+  // height: 100vh
+  // background-color: gray
+  .quiz-container
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+  .quiz
     @media (max-width: 768px)
       zoom: 1.15
       -moz-transform: scale(1.15)
       -moz-transform-origin: 0 0
-  // width: 100vw
-  // height: 100vh
-  // background-color: gray
-  .quiz
     width: 70%
     margin: auto
     @media (max-width: 768px)
       width: calc(100% - 40px)
     padding: 35px 40px 25px
     background-color: white
-    margin-top: 50px
+    margin-top: 20px
     border: 3px solid black
     // border-radius: 15px
     &__h1,
