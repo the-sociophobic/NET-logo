@@ -84,8 +84,8 @@
     margin: auto
     padding: 35px 40px 25px
     @media (max-width: 768px)
-      zoom: .65
-      -moz-transform: scale(.65)
+      zoom: .6
+      -moz-transform: scale(.6)
       -moz-transform-origin: 0 0
       width: calc(100% - 40px)
       padding: 35px 20px 10px
@@ -164,36 +164,38 @@
           padding-top: 3px
           position: relative
           cursor: pointer
+          $circle-size: 20px
           &:before, &:after
             position: absolute
-            border-radius: 30px
+            border-radius: 100%
             content: ""
           &:before
-            top: 4px
-            left: 4px
-            width: 22px
-            height: 22px
+            top: calc(#{$circle-size} / 5)
+            left: calc(#{$circle-size} / 5)
+            width: calc(#{$circle-size})
+            height: calc(#{$circle-size})
             border: 2px solid black
+            display: border-box
           &:after
-            top: 10px
-            left: 10px
-            width: 14px
-            height: 14px
+            top: calc(#{$circle-size} / 10 * 5)
+            left: calc(#{$circle-size} / 10 * 5)
+            width: calc(#{$circle-size} / 5 * 3)
+            height: calc(#{$circle-size} / 5 * 3)
             background-color: black
             opacity: 0
             transition: opacity .15s, width .05s, height .05s, top .05s, left .05s
           &--selected:after
-            top: 10px !important
-            left: 10px !important
-            width: 14px !important
-            height: 14px !important
+            // top: calc(#{$circle-size} / 10 * 5) !important
+            // left: calc(#{$circle-size} / 10 * 5) !important
+            // width: calc(#{$circle-size} / 5 * 3) !important
+            // height: calc(#{$circle-size} / 5 * 3) !important
             opacity: 1
           &:hover:after
-            top: 13px
-            left: 13px
-            width: 8px
-            height: 8px
-            opacity: .75
+            // top: calc(#{$circle-size} / 10 * 6)
+            // left: calc(#{$circle-size} / 10 * 6)
+            // width: calc(#{$circle-size} / 5 * 2)
+            // height: calc(#{$circle-size} / 5 * 2)
+            opacity: .5
 
     &__finish
       &__text
