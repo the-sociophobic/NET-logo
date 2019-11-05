@@ -14,7 +14,16 @@ new ThreeScene({units: [
   EasterEgg,
 ]})
 
-setTimeout(
-  () => ReactDOM.render(<App />, document.getElementById('quiz')),
-  255
-)
+let tryCounter = 0
+let elementLoadedChecker = setInterval(() => {
+  const elem = document.getElementById('quiz')
+  if (tryCounter >= 25)
+    clearInterval(elementLoadedChecker)
+  if (!elem) {
+    tryCounter++
+    console.log("no #quiz element in the DOM")
+    return
+  }
+  ReactDOM.render(<App />, elem)
+  clearInterval(elementLoadedChecker)
+}, 200)
