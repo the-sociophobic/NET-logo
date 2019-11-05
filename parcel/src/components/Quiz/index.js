@@ -56,8 +56,13 @@ export default class Quiz extends Component {
       {this.state.result &&
         <div className="quiz__finish__text">
           <h2 className="quiz__h2">
-            Поздравляем! Вы {this.state.result.fullName}
+            Поздравляем! Вы {this.state.result.fullName}!
           </h2>
+          <video className="quiz__finish__video" loop autoPlay>
+            <source src={`https://schedule.tochkadostupa.spb.ru/net-${this.state.result.video}-video`} type="video/mp4" />
+            <source src={`https://schedule.tochkadostupa.spb.ru/net-${this.state.result.video}-video`} type="video/ogg" />
+            Your browser does not support the video tag.
+          </video>
           <h3 className="quiz__finish__h3">
             ЧТО ДЕЛАТЬ?
           </h3>
