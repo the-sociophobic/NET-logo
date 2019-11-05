@@ -15,7 +15,10 @@ export default class Quiz extends Component {
   constructor(props) {
     super(props)
     this.state = initialState
+    console.log("Quiz initialized")
   }
+
+  componentDidMount = () => console.log("Quiz mounted")
 
   renderQuestion = question => (
     <div className="quiz__question">
@@ -28,6 +31,7 @@ export default class Quiz extends Component {
       <div className="quiz__question__options">
         {question.options.map(option => (
           <div
+            key={option.answer}
             className={"quiz__question__options__item " +
               (option.answer === (this.state.currentAnswer && this.state.currentAnswer.answer) && "quiz__question__options__item--selected")
             }
@@ -58,7 +62,10 @@ export default class Quiz extends Component {
             ЧТО ДЕЛАТЬ?
           </h3>
           {this.state.result.points.map(point => (
-            <div className="quiz__finish__point">
+            <div
+              key={typeof point === "string" ? point : point.label}
+              className="quiz__finish__point"
+            >
               ✔️{typeof point === "string" ?
                 point
                 :
