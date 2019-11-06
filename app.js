@@ -58,12 +58,13 @@ app.get('/net-style', function(req, res) {
     ...file,
     location: 'parcel/public/static/media'
   })
- :
- ({
-   ...file,
-   fileName: file.fileName + ".gif",
-   location: 'parcel/public/static/media/quiz-videos'
- })
+  :
+  ({
+    ...file,
+    fileName: file.fileName + ".gif",
+    location: 'parcel/public/static/media/quiz-videos'
+  })
+)
 .forEach(file => app
   .get("/net-" + file.url,
     (req, res) =>
