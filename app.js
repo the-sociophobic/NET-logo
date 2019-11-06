@@ -52,10 +52,12 @@ app.get('/net-style', function(req, res) {
     url: "signa-video",
     fileName: "signa",
   },
-].forEach(file => app
+]
+.map(file => file.fileName.includes(".") ? file.fileName : `quiz-videos/${file.fileName}.gif`)
+.forEach(file => app
   .get("/net-" + file.url,
     (req, res) =>
-      res.sendFile(path.join(__dirname, 'parcel/public/static/media/quiz-videos', file.fileName + (file.fileName.includes(".") ? "" : ".gif")))
+      res.sendFile(path.join(__dirname, 'parcel/public/static/media/', file.fileName))
   )
 )
 
