@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import ExternalLink from '../ExternalLink'
 import { questions, names as namesList } from './data'
+import copyToClipboard from '../../utils/copyToClipboard'
 
 
 const initialState = {
@@ -58,11 +59,10 @@ export default class Quiz extends Component {
           <h2 className="quiz__h2">
             Поздравляем! Вы {this.state.result.fullName}!
           </h2>
-          <video className="quiz__finish__video" loop autoPlay>
-            <source src={`https://schedule.tochkadostupa.spb.ru/net-${this.state.result.video}-video`} type="video/mp4" />
-            <source src={`https://schedule.tochkadostupa.spb.ru/net-${this.state.result.video}-video`} type="video/ogg" />
-            Your browser does not support the video tag.
-          </video>
+          <img
+            className="quiz__finish__video"
+            src={`https://schedule.tochkadostupa.spb.ru/net-${this.state.result.video}-video`}
+          />
           <h3 className="quiz__finish__h3">
             ЧТО ДЕЛАТЬ?
           </h3>
@@ -74,7 +74,7 @@ export default class Quiz extends Component {
               ✔️{typeof point === "string" ?
                 point
                 :
-                <>{point.label} <ExternalLink to={point.link.to} newTab>{point.link.label}</ExternalLink></>
+                <>{point.label} <ExternalLink to={point.link.to} newTab>{point.link.label}</ExternalLink>{point.after}</>
               }
             </div>
           ))}
@@ -85,7 +85,7 @@ export default class Quiz extends Component {
           <h3 className="quiz__h3">{this.state.result.promocode.label}</h3>
           <div
             className="quiz__button quiz__button--copy"
-            // onClick={() => }
+            onClick={() => copyToClipboard(this.state.result.promocode.code)}
             title="скопировать код"
           >
             {this.state.result.promocode.code}
