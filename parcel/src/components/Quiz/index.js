@@ -143,7 +143,6 @@ export default class Quiz extends Component {
       }
       <div className="quiz__finish__share-row">
         {/* <h1 dangerouslySetInnerHTML={{ __html: this.state.result.vk()}} /> */}
-        {this.state.result.fb}
         <ExternalLink
           to={this.state.result.vk2}
           newTab
@@ -161,6 +160,9 @@ export default class Quiz extends Component {
         >
           Поделиться
         </ExternalLink> */}
+      </div>
+      <div className="quiz__finish__share-row">
+        {this.state.result.fb}
       </div>
       {this.state.result.promocode &&
         <div className="quiz__finish__promocode">
