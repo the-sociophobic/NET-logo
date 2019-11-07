@@ -6,6 +6,8 @@ import copyToClipboard from '../../utils/copyToClipboard'
 
 
 const initialState = {
+  started: undefined,
+  finished: undefined,
   currentQuestion: 0,
   currentAnswer: undefined,
   answers: [],
@@ -19,7 +21,29 @@ export default class Quiz extends Component {
     console.log("Quiz initialized")
   }
 
-  componentDidMount = () => console.log("Quiz mounted")
+  componentDidMount = () => {
+    namesList.forEach(name => {
+      const nameElem = document.getElementById(name.nameEng)
+      //IF there is div on the page with some name => it's /i-am-name page!
+      if (nameElem)
+        this.setState({result: name})
+    })
+    // setTimeout(() => console.log(this.state.result), 100)
+    
+    const url = new URL(window.location.href)
+    const started = url.searchParams.get("started")
+    if (started)
+      this.setState({started: true})
+    else
+      this.setState({started: false})
+    const finished = url.searchParams.get("finished")
+    if (finished)
+      this.setState({finished: true})
+    else
+      this.setState({finished: false})
+
+    console.log("Quiz mounted")
+  }
 
   renderQuestion = question => (
     <div className="quiz__question">
@@ -42,13 +66,37 @@ export default class Quiz extends Component {
           </div>
         ))}
       </div>
-      <button
-        disabled={typeof this.state.currentAnswer === "undefined"}
-        className="quiz__button quiz__button--next"
-        onClick={() => this.nextQuestion()}
-      >
-        {this.state.currentQuestion + 1 < questions.length ? "Далее" : "Закончить"}
-      </button>
+      {this.state.currentQuestion + 1 < questions.length ?
+        <button
+          disabled={typeof this.state.currentAnswer === "undefined"}
+          className="quiz__button quiz__button--next"
+          onClick={() => this.nextQuestion()}
+        >
+          Далее
+        </button>
+        :
+        <ExternalLink to={`https://netfest.ru/i-am-${this.calculateResult().nameEng}/?finished=true`}>
+          <button
+            disabled={typeof this.state.currentAnswer === "undefined"}
+            className="quiz__button quiz__button--next"
+          >
+            Закончить
+          </button>
+        </ExternalLink>
+      }
+    </div>
+  )
+
+  renderStart = () => (
+    <div className="quiz__start">
+      <h2 className="quiz__h2 text-center">
+        Узнай кто ты из режиссеров фестиваля NET 2019
+      </h2>
+      <ExternalLink to="https://netfest.ru/who-are-you/?started=true">
+        <button className="quiz__button quiz__button--main">
+          Начать тест
+        </button>
+      </ExternalLink>
     </div>
   )
 
@@ -80,6 +128,10 @@ export default class Quiz extends Component {
           ))}
         </div>
       }
+      <div className="quiz__finish__share-row">
+        <h1 dangerouslySetInnerHTML={{ __html: this.state.result.vk()}} />
+        {this.state.result.fb}
+      </div>
       {this.state.result.promocode &&
         <div className="quiz__finish__promocode">
           <h3 className="quiz__h3">{this.state.result.promocode.label}</h3>
@@ -103,12 +155,14 @@ export default class Quiz extends Component {
         </button>
       </ExternalLink>
 
-      <button
-        className="quiz__button quiz__button--again"
-        onClick={() => this.setState({...initialState})}
-      >
-        Пройти еще раз
-      </button>
+      <ExternalLink to="https://netfest.ru/who-are-you/?started=true">
+        <button
+          className="quiz__button quiz__button--again"
+          // onClick={() => this.setState({...initialState})}
+        >
+          Пройти еще раз
+        </button>
+      </ExternalLink>
     </div>
   )
 
@@ -121,13 +175,14 @@ export default class Quiz extends Component {
       currentQuestion: this.state.currentQuestion + 1,
       currentAnswer: undefined,
     })
-
-    if (currentQuestion + 1 === questions.length)
-      this.calculateResult()
   }
 
   calculateResult = () => {
-    const { answers } = this.state
+    let { answers, currentAnswer } = this.state
+
+    if (typeof currentAnswer !== "undefined")
+      currentAnswer.names.forEach(name => answers.push(name))
+
     let names = namesList
       .map(name => ({[name.name]: 0}))
       .reduce((a, b) => ({...a, ...b}))
@@ -142,20 +197,32 @@ export default class Quiz extends Component {
       .sort((a, b) => b.score - a.score)
       [0].name
 
-    this.setState({
-      result: namesList[namesList.map(name => name.name).indexOf(resultName)]
-    })
+    return namesList[namesList.map(name => name.name).indexOf(resultName)]
   }
 
   render = () => {
+    const { started, finished, result } = this.state
+
+    //user came from shared link i-am-name => render START TEST
+    if (typeof result !== "undefined" && finished === false)
+      return <div className="quiz">{this.renderStart()}</div>
+
+    //user finished test => render U ARE NAME
+    if (typeof result !== "undefined" && finished === true)
+      return <div className="quiz">{this.renderFinish()}</div>
+
+    //component didn't mount and agnostic of situation => render nothing
+    if (typeof result === "undefined" && typeof finished === "undefined")
+      return ""
+    
+    //user goes throught test => render test
     return (
       <div className="quiz-container">
         <div className="quiz">
           {this.state.currentQuestion < questions.length ?
             this.renderQuestion(questions[this.state.currentQuestion])
             :
-            this.renderFinish()
-          }
+            this.renderFinish()}
         </div>
       </div>
     )
