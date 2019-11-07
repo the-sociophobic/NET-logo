@@ -163,7 +163,7 @@ const names = [
       "Чаще читайте произведения, которые считаются классикой. Возможно именно они помогут вам придумать что-то гениальное. В особенности Шекспира и Чехова.",
     ],
     ticketLink: "https://netfest.ru/brook/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-brook" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-brook&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-brook" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-brook&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-brook"},{type: "round_nocount", text: "Share"}),
   },
   {
@@ -179,7 +179,7 @@ const names = [
       "Всемирные вопросы человечества у вас вряд ли получится разрешить, но знать историю — всегда важно и полезно. Займитесь этим вопросом.",
     ],
     ticketLink: "https://netfest.ru/espinosa/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-espinoza" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-espinoza&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-espinoza" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-espinoza&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-espinoza"},{type: "round_nocount", text: "Share"}),
   },
   {
@@ -195,7 +195,7 @@ const names = [
       "Проблемы современного общества — миграция, глобальное потепление и избыток мировой агрессии то, что вас волнует. Постарайтесь сделать вашу жизнь экологичной и открытой к другим людям.",
     ],
     ticketLink: "https://netfest.ru/mitchell/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-mitchel" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-mitchel&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-mitchel" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-mitchel&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-mitchel"},{type: "round_nocount", text: "Share"}),
   },
   {
@@ -218,7 +218,7 @@ const names = [
       },
     ],
     ticketLink: "https://netfest.ru/rau/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-rau" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-rau&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-rau" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-rau&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-rau"},{type: "round_nocount", text: "Share"}),
   },
   {
@@ -241,7 +241,7 @@ const names = [
       "Не бойтесь говорить и делать то, что считаете нужным. Отстаивайте свои принципы, убеждения и себя самих.",
     ],
     ticketLink: "https://netfest.ru/dimchev/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-dimchev" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-dimchev&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-dimchev" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-dimchev&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-dimchev"},{type: "round_nocount", text: "Share"}),
     promocode: {
       code: "SELFIEPROMO",
@@ -261,7 +261,7 @@ const names = [
       "Не ограничивайте себя рамками и границами. Помните, вы художник и вы так видите.",
     ],
     ticketLink: "https://netfest.ru/liddell/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-liddel" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-liddel&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-liddel" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-liddel&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-liddel"},{type: "round_nocount", text: "Share"}),
   },
   {
@@ -277,7 +277,7 @@ const names = [
       "Постарайтесь не заблудиться в облаках вашего мистического тумана. Метафоры — это явно ваш конек.",
     ],
     ticketLink: "https://netfest.ru/yukhananov/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-ukhanov" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-ukhanov&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-ukhanov" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-ukhanov&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-ukhanov"},{type: "round_nocount", text: "Share"}),
   },
   {
@@ -293,7 +293,7 @@ const names = [
       "Постарайтесь нажить наследство до того момента, как начнете умирать. Помните, рано или поздно это произойдет, поэтому иногда и курабье после шести можно, и с парашютом прыгнуть раз в жизни не помешает.",
     ],
     ticketLink: "https://netfest.ru/signa/",
-    fb: <div class="fb-share-button" data-href="https://netfest.ru/i-am-signa" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-signa&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>,
+    fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-signa" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-signa&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-signa"},{type: "round_nocount", text: "Share"}),
   },
 ]

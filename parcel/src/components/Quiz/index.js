@@ -12,6 +12,7 @@ const initialState = {
   currentAnswer: undefined,
   answers: [],
   result: undefined,
+  height: 0,
 }
 
 export default class Quiz extends Component {
@@ -19,14 +20,15 @@ export default class Quiz extends Component {
     super(props)
     this.state = initialState
     console.log("Quiz initialized")
-    console.log(window.location)
+    // console.log(window.location)
   }
 
   componentDidMount = () => {
     namesList.forEach(name => {
       const nameElem = document.getElementById(name.nameEng)
+      const nameLocation = window.location.href.includes(name.nameEng)
       //IF there is div on the page with some name => it's /i-am-name page!
-      if (nameElem)
+      if (nameElem || nameLocation)
         this.setState({result: name})
     })
     // setTimeout(() => console.log(this.state.result), 100)
@@ -38,12 +40,22 @@ export default class Quiz extends Component {
     else
       this.setState({started: false})
     const finished = url.searchParams.get("finished")
-    if (finished)
+    if (finished) {
       this.setState({finished: true})
+      setTimeout(() => this.updateHeight(), 200)
+    }
     else
       this.setState({finished: false})
 
     console.log("Quiz mounted")
+  }
+
+  updateHeight = () => {
+    console.log("height updated")
+    const quizRoot = document.getElementById("quiz")
+    const quizElem = document.getElementsByClassName("quiz")[0]
+    if (quizRoot && quizElem)
+      quizRoot.style.height = `${quizElem.offsetHeight + 300}px`
   }
 
   renderQuestion = question => (
@@ -206,11 +218,11 @@ export default class Quiz extends Component {
 
     //user came from shared link i-am-name => render START TEST
     if (typeof result !== "undefined" && finished === false)
-      return <div className="quiz">{this.renderStart()}</div>
+      return <div className="quiz-container"><div className="quiz">{this.renderStart()}</div></div>
 
     //user finished test => render U ARE NAME
     if (typeof result !== "undefined" && finished === true)
-      return <div className="quiz">{this.renderFinish()}</div>
+      return <div className="quiz-container"><div className="quiz">{this.renderFinish()}</div></div>
 
     //component didn't mount and agnostic of situation => render nothing
     if (typeof result === "undefined" && typeof finished === "undefined")
