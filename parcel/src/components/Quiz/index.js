@@ -142,8 +142,22 @@ export default class Quiz extends Component {
         </div>
       }
       <div className="quiz__finish__share-row">
-        <h1 dangerouslySetInnerHTML={{ __html: this.state.result.vk()}} />
-        {this.state.result.fb}
+        {/* <h1 dangerouslySetInnerHTML={{ __html: this.state.result.vk()}} /> */}
+        {/* {this.state.result.fb} */}
+        <ExternalLink
+          to={this.state.result.vk2}
+          newTab
+          className="quiz__button quiz__button--vk"
+        >
+          Поделиться
+        </ExternalLink>
+        <ExternalLink
+          to={"https://facebook.com" + this.state.result.fb2}
+          newTab
+          className="quiz__button quiz__button--fb"
+        >
+          Поделиться
+        </ExternalLink>
       </div>
       {this.state.result.promocode &&
         <div className="quiz__finish__promocode">

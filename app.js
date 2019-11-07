@@ -21,6 +21,10 @@ app.get('/net-style', function(req, res) {
     fileName: "Boards of Canada-Turquoise Hexagon Sun.mp3",
   },
   {
+    url: "vk-logo",
+    fileName: "vk.svg",
+  },
+  {
     url: "brook-video",
     fileName: "brook",
   },

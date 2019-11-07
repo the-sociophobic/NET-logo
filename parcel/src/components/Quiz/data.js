@@ -165,6 +165,8 @@ const names = [
     ticketLink: "https://netfest.ru/brook/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-brook" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-brook&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-brook"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-brook&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-brook"
   },
   {
     name: "эспиноса",
@@ -181,6 +183,8 @@ const names = [
     ticketLink: "https://netfest.ru/espinosa/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-espinoza" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-espinoza&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-espinoza"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-espinoza&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-espinoza",
   },
   {
     name: "митчелл",
@@ -197,6 +201,8 @@ const names = [
     ticketLink: "https://netfest.ru/mitchell/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-mitchel" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-mitchel&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-mitchel"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-mitchel&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-mitchel",
   },
   {
     name: "мило рау",
@@ -220,6 +226,8 @@ const names = [
     ticketLink: "https://netfest.ru/rau/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-rau" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-rau&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-rau"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-rau&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-rau",
   },
   {
     name: "димчев",
@@ -243,6 +251,8 @@ const names = [
     ticketLink: "https://netfest.ru/dimchev/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-dimchev" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-dimchev&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-dimchev"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-dimchev&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-dimchev",
     promocode: {
       code: "SELFIEPROMO",
       label: "ПРОМОКОД НА 50% СКИДКУ"
@@ -263,6 +273,8 @@ const names = [
     ticketLink: "https://netfest.ru/liddell/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-liddel" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-liddel&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-liddel"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-liddel&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-liddel",
   },
   {
     name: "юхананов",
@@ -279,6 +291,8 @@ const names = [
     ticketLink: "https://netfest.ru/yukhananov/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-ukhanov" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-ukhanov&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-ukhanov"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-ukhanov&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-ukhanov",
   },
   {
     name: "сигна",
@@ -295,6 +309,8 @@ const names = [
     ticketLink: "https://netfest.ru/signa/",
     fb: <div className="fb-share-button" data-href="https://netfest.ru/i-am-signa" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnetfest.ru%2Fi-am-signa&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share</a></div>,
     vk: () => VK.Share.button({url: "https://netfest.ru/i-am-signa"},{type: "round_nocount", text: "Share"}),
+    fb2: "/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-signa&display=popup&ref=plugin&src=share_button",
+    vk2: "https://vk.com/share.php?url=https%3A%2F%2Fnetfest.ru%2Fi-am-signa",
   },
 ]
 
