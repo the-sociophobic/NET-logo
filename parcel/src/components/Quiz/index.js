@@ -19,6 +19,7 @@ export default class Quiz extends Component {
     super(props)
     this.state = initialState
     console.log("Quiz initialized")
+    console.log(window.location)
   }
 
   componentDidMount = () => {
