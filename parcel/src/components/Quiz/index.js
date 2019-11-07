@@ -143,7 +143,7 @@ export default class Quiz extends Component {
       }
       <div className="quiz__finish__share-row">
         {/* <h1 dangerouslySetInnerHTML={{ __html: this.state.result.vk()}} /> */}
-        {/* {this.state.result.fb} */}
+        {this.state.result.fb}
         <ExternalLink
           to={this.state.result.vk2}
           newTab
@@ -151,13 +151,16 @@ export default class Quiz extends Component {
         >
           Поделиться
         </ExternalLink>
-        <ExternalLink
-          to={"https://facebook.com" + this.state.result.fb2}
+        {/* <ExternalLink
+          // to={"https://facebook.com" + this.state.result.fb2}
+          to={"https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnetfest.ru%2Fi-am-espinoza&display=popup&ref=plugin&src=share_button"}
           newTab
+          // className="fb-share-button quiz__button quiz__button--fb"
           className="quiz__button quiz__button--fb"
+          // data-href={"https://netfest.ru/i-am-" + this.state.result.nameEng}
         >
           Поделиться
-        </ExternalLink>
+        </ExternalLink> */}
       </div>
       {this.state.result.promocode &&
         <div className="quiz__finish__promocode">
