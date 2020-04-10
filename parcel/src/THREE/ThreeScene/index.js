@@ -20,7 +20,8 @@ export default class ThreeScene {
           return
         }
         clearInterval(elementLoadedChecker)
-        setTimeout(() => this.init.bind(this)(), 50)
+        console.log("injecting ThreeScene to #three-scene in 150ms")
+        setTimeout(() => this.init.bind(this)(), 150)
       }, 200)
     }
   }
@@ -36,11 +37,7 @@ export default class ThreeScene {
     //ADD RENDERER
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     this.renderer.setSize(width, height)
-    // if (isTouchDevice())
-    //   this.renderer.setPixelRatio(1)
-    // else
-      this.renderer.setPixelRatio(2)
-      // this.renderer.setPixelRatio(1)
+    this.renderer.setPixelRatio(window.devicePixelRatio)
     ViewerDiv.appendChild(this.renderer.domElement)
 
     //ADD SCENE
