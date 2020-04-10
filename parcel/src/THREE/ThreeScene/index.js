@@ -40,7 +40,8 @@ export default class ThreeScene extends Component {
     const props = {
       renderer: this.renderer,
       scene: this.scene,
-      type: W > 720 ? "web" : "mobile",
+      // type: W > 720 ? "web" : "mobile",
+      type: W > 520 ? "web" : "mobile",
       switchToEasterEgg: () => Object.keys(this.units)
         .forEach(unitName =>
           this.units[unitName].switchToEasterEgg && this.units[unitName].switchToEasterEgg())
