@@ -69,7 +69,7 @@ export default class ThreeScene extends Component {
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
 
     const W = Math.min(window.outerWidth, window.innerWidth)
-    W > 720 ? this.units.Logo.switchType("web") : this.units.Logo.switchType("mobile")
+    W > 520 ? this.units.Logo.switchType("web") : this.units.Logo.switchType("mobile")
   }
 
   animate = () => {
