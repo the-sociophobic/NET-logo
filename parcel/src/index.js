@@ -1,29 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import ThreeScene from './THREE/ThreeScene'
-import Logo from './THREE/Logo'
-import EasterEgg from './THREE/EasterEgg'
 import App from './components/App'
 
 import './styles/index.sass'
 
 
-new ThreeScene({units: [
-  Logo,
-  EasterEgg,
-]})
+// new ThreeScene({units: [
+//   Logo,
+//   EasterEgg,
+// ]})
 
 let tryCounter = 0
 let elementLoadedChecker = setInterval(() => {
-  const elem = document.getElementById('quiz')
+  const quizElem = document.getElementById('quiz')
+  const threeSceneElem = document.getElementById('three-scene')
+
   if (tryCounter >= 25)
     clearInterval(elementLoadedChecker)
-  if (!elem) {
+  if (!quizElem && !threeSceneElem) {
     tryCounter++
+    console.log("no #three-scene element in the DOM")
     console.log("no #quiz element in the DOM")
     return
   }
-  ReactDOM.render(<App />, elem)
+  if (threeSceneElem)
+    ReactDOM.render(<App threeScene />, threeSceneElem)
+  if (quizElem)
+    ReactDOM.render(<App quiz />, quizElem)
   clearInterval(elementLoadedChecker)
 }, 200)

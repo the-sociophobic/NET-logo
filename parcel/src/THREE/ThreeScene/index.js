@@ -1,33 +1,16 @@
+import React, { Component } from 'react'
+
 import ResizeObserver from 'resize-observer-polyfill'
 
 
-export default class ThreeScene {
+export default class ThreeScene extends Component {
   constructor(props) {
-    this.props = props
-    //Wait for css to apply to elem size. Should prevent infinite event firing
-    //React's componentDidMount() alternative
-    window.onload = () => {
-      var tryCounter = 0
-      const elementLoadedChecker = setInterval(() => {
-        const ViewerDiv = document.getElementById("three-scene")
-        if (tryCounter >= 25) {
-          clearInterval(elementLoadedChecker)
-          return
-        }
-        if (!ViewerDiv) {
-          console.log("no #three-scene element in the DOM")
-          tryCounter++
-          return
-        }
-        clearInterval(elementLoadedChecker)
-        console.log("injecting ThreeScene to #three-scene in 150ms")
-        setTimeout(() => this.init.bind(this)(), 150)
-      }, 200)
-    }
+    super(props)
+    this.viewerRef = new React.createRef()
   }
 
-  init() {
-    const ViewerDiv = document.getElementById("three-scene")
+  componentDidMount() {
+    const ViewerDiv = this.viewerRef.current
     this.resizeObs = new ResizeObserver(this.updateDimensions.bind(this))
       .observe(ViewerDiv)
 
@@ -58,37 +41,58 @@ export default class ThreeScene {
       renderer: this.renderer,
       scene: this.scene,
       type: W > 720 ? "web" : "mobile",
-      switchToEasterEgg: () => this.units.forEach(unit => unit.switchToEasterEgg && unit.switchToEasterEgg())
+      switchToEasterEgg: () => Object.keys(this.units)
+        .forEach(unitName =>
+          this.units[unitName].switchToEasterEgg && this.units[unitName].switchToEasterEgg())
     }
-    this.units = []
-    this.props.units.forEach(unit => this.units.push(new unit(props)))
+    this.units = {}
+
+    Object.keys(this.props.myScene.units)
+      .forEach(unitName => {
+        const unit = this.props.myScene.units[unitName]
+
+        if (!unit.disabled ^ this.unitsToggled)
+          this.units[unitName] = new unit.unit(props)
+      })
 
     if (!this.frameId)
       this.frameId = requestAnimationFrame(this.animate.bind(this))
   }
 
   updateDimensions = () => {
-    const ViewerDiv = document.getElementById("three-scene")
+    const ViewerDiv = this.viewerRef && this.viewerRef.current
+    if (!this.renderer || !ViewerDiv || !this.camera)
+      return
     this.camera.aspect = ViewerDiv.clientWidth / ViewerDiv.clientHeight
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(ViewerDiv.clientWidth, ViewerDiv.clientHeight)
 
     const W = Math.min(window.outerWidth, window.innerWidth)
-    W > 720 ? this.units[0].switchType("web") : this.units[0].switchType("mobile")
+    W > 720 ? this.units.Logo.switchType("web") : this.units.Logo.switchType("mobile")
   }
 
   animate = () => {
-    this.units.forEach(unit => unit.animate())
+    Object.keys(this.units).forEach(unitName => this.units[unitName].animate())
     this.renderer.render(this.scene, this.camera)
     this.frameId = window.requestAnimationFrame(this.animate.bind(this))
   }
 
   componentWillUnmount(){
-    this.units.forEach(unit => unit.dispose())
+    Object.keys(this.units)
+      .forEach(unitName => this.units[unitName].dispose())
+    while(this.scene.children.length > 0)
+      this.scene.remove(this.scene.children[0])
+
     cancelAnimationFrame(this.frameId)
-    if (this.renderer.domElement)
-      this.viewerRef.removeChild(this.renderer.domElement)
+    // if (this.renderer.domElement)
+    //   this.viewerRef.removeChild(this.renderer.domElement)
   }
 
+  render = () => (
+    <div
+      className="Viewer"
+      ref={this.viewerRef}
+    />
+  )
 }
 
