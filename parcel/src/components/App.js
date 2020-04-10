@@ -8,6 +8,7 @@ import Quiz from './Quiz'
 export default class App extends Component {
   render = () => (
     <>
+      <div id="react-injected-div" />
       {this.props.threeScene && <ThreeScene myScene={myScene} />}
       {this.props.quiz && <Quiz />}
     </>
